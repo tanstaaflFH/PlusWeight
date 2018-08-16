@@ -1,67 +1,116 @@
 <svg>
-  <gradientRect id="gradient" width="100%" height="100%"
-          gradient-type="linear"
-          gradient-x1="0" gradient-y1="50"
-          gradient-x2="0" gradient-y2="100%-50"
-          gradient-color1="#baeaff" gradient-color2="#3dc4ff" />
-  <rect id="levelRect" >
-        <animate id="levelAnimate" attributeName="height" begin="enable" dur="2" />
-  </rect>
-  <text id="newWater" x="50%" y="15%+15"
-        font-family="System-Regular" fill="green"
-        font-size="50" font-weight="bold"
-        text-length="5"
-        text-anchor="middle"></text>
-  <text id="waterValue" x="50%" y="50%+15"
-        pointer-events="visible"
-        font-family="System-Regular" fill="white"
-        font-size="60" font-weight="bold"
-        text-length="8"
-        text-anchor="middle"></text>
-    <text id="units" x="50%" y="60%+15"
-        pointer-events="visible"
-        font-family="System-Regular" fill="white"
-        font-size="30" font-weight="bold"
-        text-length="8"
-        text-anchor="middle"></text>
-  
-  <!--BUTTONS-->
-  <use id="plusOne" href="#combo-button-upper-right" fill="fb-white">
-    <set href="combo-button-icon" attributeName="href" to="images/sqr_btn_plus_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="images/sqr_btn_plus_p.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-  </use>
-  <use id="minusOne" href="#combo-button-lower-right" fill="fb-white">
-    <set href="combo-button-icon" attributeName="href" to="images/btn_combo_minus_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="images/btn_combo_minus_p.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-  </use>
-  <use id="save" href="#combo-button-lower-left" fill="fb-white">
-    <set href="combo-button-icon" attributeName="href" to="images/btn_combo_check_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="images/btn_combo_check_press_p.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-  </use>
-  <use id="plusGlass" href="#combo-button-lower-right" fill="fb-white">
-    <set href="combo-button-icon" attributeName="href" to="images/btn_combo_glass.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="images/btn_combo_glass.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-  </use>
-  <use id="plusSmallBottle" href="#combo-button-lower-left" fill="fb-white">
-    <set href="combo-button-icon" attributeName="href" to="images/btn_combo_waterbottle_one.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="images/btn_combo_waterbottle_one.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-  </use>
-  <use id="plusBigBottle" href="#combo-button-upper-left" fill="fb-white">
-    <set href="combo-button-icon" attributeName="href" to="images/btn_combo_waterbottle_two.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="images/btn_combo_waterbottle_two.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-  </use>
-  
-  <rect id="startup" />
-  <text id="refreshing" x="50%" y="75%+15"
-        pointer-events="visible"
-        font-family="System-Regular" fill="white"
-        font-size="20" font-weight="bold"
-        text-length="32"
-        text-anchor="middle">refreshing...</text>
+	
+	<svg id="screenEntry" viewport-fill="black">
+		
+		//info text
+		<text id="txtInfo">Please enter your weight:</text>
+		
+		//tumblers for weight entry
+		<use id="tumblerInt" href="#tumblerview">
+  	  	<use id="item000" href="#tumbler-item" class="tumblerItem">
+   	 		<text id="content">000</text>
+    		</use>
+    		<use id="item001" href="#tumbler-item" class="tumblerItem">
+				<text id="content">001</text>
+    		</use>
+			<use id="item002" href="#tumbler-item" class="tumblerItem">
+				<text id="content">002</text>
+			</use>
+			<use id="item003" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">003</text>
+    		</use>
+			<use id="item004" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">004</text>
+    		</use>
+    		<use id="item005" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">005</text>
+    		</use>
+    		<use id="item006" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">006</text>
+    		</use>
+    		<use id="item007" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">007</text>
+    		</use>
+    		<use id="item008" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">008</text>
+    		</use>
+    		<use id="item009" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">009</text>
+    		</use>
+  	  	<use id="item010" href="#tumbler-item" class="tumblerItem">
+   	 		<text id="content">010</text>
+    		</use>
+    		<use id="item011" href="#tumbler-item" class="tumblerItem">
+				<text id="content">011</text>
+    		</use>
+			<use id="item012" href="#tumbler-item" class="tumblerItem">
+				<text id="content">012</text>
+			</use>
+			<use id="item013" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">013</text>
+    		</use>
+			<use id="item014" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">014</text>
+    		</use>
+    		<use id="item015" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">015</text>
+    		</use>
+    		<use id="item016" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">016</text>
+    		</use>
+    		<use id="item017" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">017</text>
+    		</use>
+    		<use id="item018" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">018</text>
+    		</use>
+    		<use id="item019" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">019</text>
+    		</use>
+		</use>
+		
+		<text id="tumblerSeparator">,</text>
+		
+		<use id="tumblerFloat" href="#tumblerview">
+  	  	<use id="item0" href="#tumbler-item" class="tumblerItem">
+   	 		<text id="content">0</text>
+    		</use>
+    		<use id="item1" href="#tumbler-item" class="tumblerItem">
+				<text id="content">1</text>
+    		</use>
+			<use id="item2" href="#tumbler-item" class="tumblerItem">
+				<text id="content">2</text>
+			</use>
+			<use id="item3" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">3</text>
+    		</use>
+			<use id="item4" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">4</text>
+    		</use>
+    		<use id="item5" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">5</text>
+    		</use>
+    		<use id="item6" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">6</text>
+    		</use>
+    		<use id="item7" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">7</text>
+    		</use>
+    		<use id="item8" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">8</text>
+    		</use>
+    		<use id="item9" href="#tumbler-item" class="tumblerItem">
+      			<text id="content">9</text>
+    		</use>
+		</use>
+		
+		// submit button
+		<use id="btnSubmit" href="#combo-button-lower-right" fill="fb-peach">
+    		<set href="combo-button-icon" attributeName="href" to="play.png"/>
+    		<set href="combo-button-icon-press" attributeName="href" to="play_press.png"/>
+    		<set href="combo-button-stroke" attributeName="display" to="inline"/>
+		</use>
+		
+	</svg>
+	
 </svg>

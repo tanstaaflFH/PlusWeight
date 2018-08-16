@@ -1,13 +1,49 @@
-#levelRect {
-    width: 100%;
-    height: 100%;
-    x: 0;
-    y: 0;
+#txtInfo {
+	font-size: 36;
+	text-anchor: middle;
+	fill: white;
+	x: 50%;
+	y: 20%+18;
 }
 
-#startup {
-    width: 100%;
-    height: 100%;
-    x: 0;
-    y: 0;
+#tumblerInt #tumblerFloat {
+	height: 180;
+	y: 50%-50;
+	fill: grey;
+}
+
+#tumblerInt {
+	x: 0;
+	width: 60%;
+}
+
+#tumblerFloat {
+	x: 70%;
+	width: 30%;
+}
+
+#tumblerInt text {
+	text-anchor: end;
+}
+
+#tumblerFloat text {
+	text-anchor: beginning;
+}
+
+.tumblerItem {
+	height: 90;
+}
+
+.tumblerItem text {
+	font-size: 80;
+	fill: white;
+	x: 5;
+}
+
+#tumblerSeparator {
+	font-size: 80;
+	text-anchor: middle;
+	fill: white;
+	x: 66%;
+	y: 50%+30;
 }
