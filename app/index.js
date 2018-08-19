@@ -6,23 +6,28 @@ import * as util from "./util.js";
 import { me as device } from "device";
 if (!device.screen) device.screen = { width: 348, height: 250 };
 
-// commonly used elements
-let waterValue = document.getElementById("waterValue");
-let rect = document.getElementById("levelRect");
-let startup = document.getElementById("startup");
-let newWater = document.getElementById("newWater");
-let unitsText = document.getElementById("units");
-let refreshingText = document.getElementById("refreshing");
-let levelAnimation = document.getElementById("levelAnimate");
-let gradientRect = document.getElementById("gradient");
+// *** header ***
+let txtUnsync = document.getElementById("txtUnsynced");
+let txtClock = document.getElementById("txtClock");
 
-// Buttons
-let save = document.getElementById("save");
-let plusOne = document.getElementById("plusOne");
-let minusOne = document.getElementById("minusOne");
-let plusGlass = document.getElementById("plusGlass");
-let plusSmallBottle = document.getElementById("plusSmallBottle");
-let plusBigBottle = document.getElementById("plusBigBottle");
+// *** main screen ***
+let btnNewWeightComb = document.getElementById("btnNewWeightComb");
+let btnNewWeight = document.getElementById("btnNewWeight");
+//pop up weight
+let containerEntryWeight = document.getElementById("containerEntryWeight");
+let weightTumblerInt = document.getElementById("weightTumblerInt");
+let weightTumblerFloat = document.getElementById("weightTumblerFloat");
+let weightTumblerSeparator = document.getElementById("weightTumblerSeparator");
+let weightTumblerUnit = document.getElementById("weightTumblerUnit");
+let weightBtnSubmit = document.getElementById("weightBtnSubmit");
+let weightBtnReject = document.getElementById("weightBtnReject");
+//fat up weight
+let containerEntryFat = document.getElementById("containerEntryFat");
+let fatTumblerInt = document.getElementById("fatTumblerInt");
+let fatTumblerFloat = document.getElementById("fatTumblerFloat");
+let fatTumblerSeparator = document.getElementById("fatTumblerSeparator");
+let fatBtnSubmit = document.getElementById("fatBtnSubmit");
+let fatBtnReject = document.getElementById("fatBtnReject");
 
 // The save button should be hidden by default
 save.style.display = "none";

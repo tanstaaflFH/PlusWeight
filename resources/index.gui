@@ -1,116 +1,291 @@
 <svg>
+
+	<def>
+		//header
+		<symbol id="headerSymbol">
+			<text id="txtUnsynced" class="txtColor txtHeader"/>
+			<text id="txtClock" class="txtColor txtHeader"/>
+			<line id="headSeparator"/>
+		</symbol>
+	</def>
+
+	<use id="panScreens" href="#panoramaview"> 
 	
-	<svg id="screenEntry" viewport-fill="black">
+		<use id="screen0" href="#panoramaview-item"> 
+
+			//header
+			<use href="#headerSymbol"/>
 		
-		//info text
-		<text id="txtInfo">Please enter your weight:</text>
-		
-		//tumblers for weight entry
-		<use id="tumblerInt" href="#tumblerview">
-  	  	<use id="item000" href="#tumbler-item" class="tumblerItem">
-   	 		<text id="content">000</text>
-    		</use>
-    		<use id="item001" href="#tumbler-item" class="tumblerItem">
-				<text id="content">001</text>
-    		</use>
-			<use id="item002" href="#tumbler-item" class="tumblerItem">
-				<text id="content">002</text>
+			//info text
+			<text id="txtInfo" class="txtColor">Please enter your weight:</text>
+			
+			//new weight entry buttons
+	 	<use id="btnNewWeightComb" href="#combo-button-lower-right" fill="fb-lime">
+    <set href="combo-button-icon" attributeName="href" to="btn_combo_check_p.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_check_press_p.png"/>
+    <set href="combo-button-stroke" attributeName="display" to="inline"/>
 			</use>
-			<use id="item003" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">003</text>
-    		</use>
-			<use id="item004" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">004</text>
-    		</use>
-    		<use id="item005" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">005</text>
-    		</use>
-    		<use id="item006" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">006</text>
-    		</use>
-    		<use id="item007" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">007</text>
-    		</use>
-    		<use id="item008" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">008</text>
-    		</use>
-    		<use id="item009" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">009</text>
-    		</use>
-  	  	<use id="item010" href="#tumbler-item" class="tumblerItem">
-   	 		<text id="content">010</text>
-    		</use>
-    		<use id="item011" href="#tumbler-item" class="tumblerItem">
-				<text id="content">011</text>
-    		</use>
-			<use id="item012" href="#tumbler-item" class="tumblerItem">
-				<text id="content">012</text>
+			
+			<use id="btnNewWeight" href="#square-button" > 
+				<set href="#text" attributeName="text-buffer" to="New weight entry" /> 
 			</use>
-			<use id="item013" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">013</text>
-    		</use>
-			<use id="item014" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">014</text>
-    		</use>
-    		<use id="item015" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">015</text>
-    		</use>
-    		<use id="item016" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">016</text>
-    		</use>
-    		<use id="item017" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">017</text>
-    		</use>
-    		<use id="item018" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">018</text>
-    		</use>
-    		<use id="item019" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">019</text>
-    		</use>
-		</use>
+			
+			//entry pop up weight
+			<svg id="containerEntryWeight" viewport-fill="black" opacity="0.8">
 		
-		<text id="tumblerSeparator">,</text>
+				//tumblers for weight entry
+				<use id="weightTumblerInt" href="#tumblerview" class="tumbler tumblerInt">
+				
+  			<use id="weightItemInt000" href="#tumbler-item" class="tumblerItem">
+   	 	<text id="content">000</text>
+    </use>
+    <use id="weightItemInt001" href="#tumbler-item" class="tumblerItem">
+						<text id="content">001</text>
+    </use>
+					<use id="weightItemInt002" href="#tumbler-item" class="tumblerItem">
+						<text id="content">002</text>
+					</use>
+					<use id="weightItemInt003" href="#tumbler-item" class="tumblerItem">
+     <text id="content">003</text>
+    </use>
+					<use id="weightItemInt004" href="#tumbler-item" class="tumblerItem">
+     <text id="content">004</text>
+    </use>
+    <use id="weightItemInt005" href="#tumbler-item" class="tumblerItem">
+     <text id="content">005</text>
+    </use>
+    <use id="weightItemInt006" href="#tumbler-item" class="tumblerItem">
+     <text id="content">006</text>
+    </use>
+    <use id="weightItemInt007" href="#tumbler-item" class="tumblerItem">
+     <text id="content">007</text>
+    </use>
+    <use id="weightItemInt008" href="#tumbler-item" class="tumblerItem">
+     <text id="content">008</text>
+    </use>
+    <use id="weightItemInt009" href="#tumbler-item" class="tumblerItem">
+     <text id="content">009</text>
+    </use>
+  	 	<use id="weightItemInt010" href="#tumbler-item" class="tumblerItem">
+   	 	<text id="content">010</text>
+    </use>
+    <use id="weightItemInt011" href="#tumbler-item" class="tumblerItem">
+						<text id="content">011</text>
+    </use>
+					<use id="weightItemInt012" href="#tumbler-item" class="tumblerItem">
+						<text id="content">012</text>
+					</use>
+					<use id="weightItemInt013" href="#tumbler-item" class="tumblerItem">
+     <text id="content">013</text>
+    </use>
+					<use id="weightItemInt014" href="#tumbler-item" class="tumblerItem">
+     <text id="content">014</text>
+    </use>
+    <use id="weightItemInt015" href="#tumbler-item" class="tumblerItem">
+     <text id="content">015</text>
+    </use>
+    <use id="weightItemInt016" href="#tumbler-item" class="tumblerItem">
+     <text id="content">016</text>
+    </use>
+    <use id="weightItemInt017" href="#tumbler-item" class="tumblerItem">
+     <text id="content">017</text>
+    </use>
+    <use id="weightItemInt018" href="#tumbler-item" class="tumblerItem">
+     <text id="content">018</text>
+    </use>
+    <use id="weightItemInt019" href="#tumbler-item" class="tumblerItem">
+     <text id="content">019</text>
+    </use>
+    
+				</use> //weightTumblerInt
 		
-		<use id="tumblerFloat" href="#tumblerview">
-  	  	<use id="item0" href="#tumbler-item" class="tumblerItem">
-   	 		<text id="content">0</text>
-    		</use>
-    		<use id="item1" href="#tumbler-item" class="tumblerItem">
-				<text id="content">1</text>
-    		</use>
-			<use id="item2" href="#tumbler-item" class="tumblerItem">
-				<text id="content">2</text>
-			</use>
-			<use id="item3" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">3</text>
-    		</use>
-			<use id="item4" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">4</text>
-    		</use>
-    		<use id="item5" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">5</text>
-    		</use>
-    		<use id="item6" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">6</text>
-    		</use>
-    		<use id="item7" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">7</text>
-    		</use>
-    		<use id="item8" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">8</text>
-    		</use>
-    		<use id="item9" href="#tumbler-item" class="tumblerItem">
-      			<text id="content">9</text>
-    		</use>
-		</use>
+				<text id="weightTumblerSeparator" class="txtColor tumblerSeparator">,</text>
 		
-		// submit button
-		<use id="btnSubmit" href="#combo-button-lower-right" fill="fb-peach">
-    		<set href="combo-button-icon" attributeName="href" to="play.png"/>
-    		<set href="combo-button-icon-press" attributeName="href" to="play_press.png"/>
+				<use id="weightTumblerFloat" href="#tumblerview" class="tumbler tumblerFloat">
+  	 	
+  	 	<use id="weightItemFloat0" href="#tumbler-item" class="tumblerItem">
+   	 	<text id="content">0</text>
+    </use>
+    <use id="weightItemFloat1" href="#tumbler-item" class="tumblerItem">
+						<text id="content">1</text>
+    </use>
+					<use id="weightItemFloat2" href="#tumbler-item" class="tumblerItem">
+						<text id="content">2</text>
+					</use>
+					<use id="weightItemFloat3" href="#tumbler-item" class="tumblerItem">
+     <text id="content">3</text>
+    </use>
+					<use id="weightItemFloat4" href="#tumbler-item" class="tumblerItem">
+     <text id="content">4</text>
+    </use>
+    <use id="weightItemFloat5" href="#tumbler-item" class="tumblerItem">
+     <text id="content">5</text>
+    </use>
+    <use id="weightItemFloat6" href="#tumbler-item" class="tumblerItem">
+     <text id="content">6</text>
+    </use>
+    <use id="weightItemFloat7" href="#tumbler-item" class="tumblerItem">
+    
+   </use> //weightTumblerFloat
+   
+   <text id="weightTumblerUnit" class="txtColor tumblerUnit">kg</text>
+ 
+ 			//confirm + reject buttons
+	  	<use id="weightBtnConfirm" href="#combo-button-upper-right" fill="fb-lime">
+    <set href="combo-button-icon" attributeName="href" to="btn_combo_check_p.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_check_press_p.png"/>
+    <set href="combo-button-stroke" attributeName="display" to="inline"/>
+				</use>
+					
+				<use id="weightBtnReject" href="#combo-button-lower-right" fill="fb-magenta">
+    <set href="combo-button-icon" attributeName="href" to="btn_combo_x_p.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_x_press.png"/>
+    <set href="combo-button-stroke" attributeName="display" to="inline"/>
+				</use>
+  		
+  	</svg>  //weight entry pop up
+  	
+  	//entry pop up fat
+			<svg id="containerEntryFat" viewport-fill="black" opacity="0.8">
+		
+				//tumblers for fat entry
+				<use id="fatTumblerInt" href="#tumblerview" class="tumbler tumblerInt">
+				
+  			<use id="fatItemInt000" href="#tumbler-item" class="tumblerItem">
+   	 	<text id="content">000</text>
+    </use>
+    <use id="fatItemInt001" href="#tumbler-item" class="tumblerItem">
+						<text id="content">001</text>
+    </use>
+					<use id="fatItemInt002" href="#tumbler-item" class="tumblerItem">
+						<text id="content">002</text>
+					</use>
+					<use id="fatItemInt003" href="#tumbler-item" class="tumblerItem">
+     <text id="content">003</text>
+    </use>
+					<use id="fatItemInt004" href="#tumbler-item" class="tumblerItem">
+     <text id="content">004</text>
+    </use>
+    <use id="fatItemInt005" href="#tumbler-item" class="tumblerItem">
+     <text id="content">005</text>
+    </use>
+    <use id="fatItemInt006" href="#tumbler-item" class="tumblerItem">
+     <text id="content">006</text>
+    </use>
+    <use id="fatItemInt007" href="#tumbler-item" class="tumblerItem">
+     <text id="content">007</text>
+    </use>
+    <use id="fatItemInt008" href="#tumbler-item" class="tumblerItem">
+     <text id="content">008</text>
+    </use>
+    <use id="fatItemInt009" href="#tumbler-item" class="tumblerItem">
+     <text id="content">009</text>
+    </use>
+  	 	<use id="fatItemInt010" href="#tumbler-item" class="tumblerItem">
+   	 	<text id="content">010</text>
+    </use>
+    <use id="fatItemInt011" href="#tumbler-item" class="tumblerItem">
+						<text id="content">011</text>
+    </use>
+					<use id="fatItemInt012" href="#tumbler-item" class="tumblerItem">
+						<text id="content">012</text>
+					</use>
+					<use id="fatItemInt013" href="#tumbler-item" class="tumblerItem">
+     <text id="content">013</text>
+    </use>
+					<use id="fatItemInt014" href="#tumbler-item" class="tumblerItem">
+     <text id="content">014</text>
+    </use>
+    <use id="fatItemInt015" href="#tumbler-item" class="tumblerItem">
+     <text id="content">015</text>
+    </use>
+    <use id="fatItemInt016" href="#tumbler-item" class="tumblerItem">
+     <text id="content">016</text>
+    </use>
+    <use id="fatItemInt017" href="#tumbler-item" class="tumblerItem">
+     <text id="content">017</text>
+    </use>
+    <use id="fatItemInt018" href="#tumbler-item" class="tumblerItem">
+     <text id="content">018</text>
+    </use>
+    <use id="fatItemInt019" href="#tumbler-item" class="tumblerItem">
+     <text id="content">019</text>
+    </use>
+    
+				</use> //fatTumblerInt
+		
+				<text id="fatTumblerSeparator" class="txtColor tumblerSeparator">,</text>
+		
+				<use id="fatTumblerFloat" href="#tumblerview" class="tumbler tumblerFloat">
+  	 	
+  	 	<use id="fatItemFloat0" href="#tumbler-item" class="tumblerItem">
+   	 	<text id="content">0</text>
+    </use>
+    <use id="fatItemFloat1" href="#tumbler-item" class="tumblerItem">
+						<text id="content">1</text>
+    </use>
+					<use id="fatItemFloat2" href="#tumbler-item" class="tumblerItem">
+						<text id="content">2</text>
+					</use>
+					<use id="fatItemFloat3" href="#tumbler-item" class="tumblerItem">
+     <text id="content">3</text>
+    </use>
+					<use id="fatItemFloat4" href="#tumbler-item" class="tumblerItem">
+     <text id="content">4</text>
+    </use>
+    <use id="fatItemFloat5" href="#tumbler-item" class="tumblerItem">
+     <text id="content">5</text>
+    </use>
+    <use id="fatItemFloat6" href="#tumbler-item" class="tumblerItem">
+     <text id="content">6</text>
+    </use>
+    <use id="fatItemFloat7" href="#tumbler-item" class="tumblerItem">
+    
+   </use> //fatTumblerFloat
+   
+   <text id="fatTumblerUnit" class="txtColor tumblerUnit">%</text>
+ 
+ 			//confirm + reject buttons
+	  	<use id="fatBtnConfirm" href="#combo-button-upper-right" fill="fb-lime">
+    <set href="combo-button-icon" attributeName="href" to="btn_combo_check_p.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_check_press_p.png"/>
+    <set href="combo-button-stroke" attributeName="display" to="inline"/>
+				</use>
+					
+				<use id="fatBtnReject" href="#combo-button-lower-right" fill="fb-magenta">
+    <set href="combo-button-icon" attributeName="href" to="btn_combo_x_p.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_x_press.png"/>
+    <set href="combo-button-stroke" attributeName="display" to="inline"/>
+				</use>
+  		
+  	</svg>  //fat entry pop up
+		
+		</use> //panoramic view screen0
+			
+		<use id="screen1" href="#panoramaview-item"> 
+
+			//header
+			<use href="#headerSymbol"/>
+			
+			//info text old weight entries
+			<textarea id="txtWeightList" class="txtColor" />
+			
+			//refresh button
+			<use id="btnRefresh" href="#combo-button-lower-right" fill="fb-yellow">
+    		<set href="combo-button-icon" attributeName="href" to="btn_combo_reset_p.png"/>
+    		<set href="combo-button-icon-press" attributeName="href" to="btn_combo_reset_p.png"/>
     		<set href="combo-button-stroke" attributeName="display" to="inline"/>
+  	</use>
+			
 		</use>
 		
-	</svg>
+		<use id="pagination-dots" href="#pagination-widget" y="97%"> 
+			<use href="#pagination-dot" /> 
+			<use href="#pagination-dot" /> 
+			<use href="#pagination-dot" /> 		
+			<use href="#pagination-highlight-dot" /> 
+		</use>
+			
+	</use>
 	
 </svg>

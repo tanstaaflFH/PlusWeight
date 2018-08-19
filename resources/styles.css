@@ -1,33 +1,69 @@
+/* general */
+.txtColor {
+ fill: white;
+}
+
+/* header */
+.txtHeader {
+	font-size: 12;
+	y: 5%+6;
+}
+
+#txtUnsynced {
+	text-anchor: start;
+	x: 5%;
+}
+
+#txtClock {
+	text-anchor: end;
+	x: 95%;
+}
+
+#headSeparator{
+	x1: 0;
+	x2: 100%;
+	y1: 8%;
+	y2: 8%;
+	stroke-width: 1;
+	fill: fb-grey;
+}
+
+/* main screen */
+
 #txtInfo {
 	font-size: 36;
 	text-anchor: middle;
-	fill: white;
 	x: 50%;
-	y: 20%+18;
+	y: 30%+18;
 }
 
-#tumblerInt #tumblerFloat {
+#btnNewWeight {
+	y: 80%;
+	fill: fb-lime;
+}
+
+.tumbler {
 	height: 180;
 	y: 50%-50;
 	fill: grey;
 }
 
-#tumblerInt {
+.tumblerInt {
 	x: 0;
 	width: 60%;
 }
 
-#tumblerFloat {
+.tumblerFloat {
 	x: 70%;
 	width: 30%;
 }
 
-#tumblerInt text {
+.tumblerInt text {
 	text-anchor: end;
 }
 
-#tumblerFloat text {
-	text-anchor: beginning;
+.tumblerFloat text {
+	text-anchor: start;
 }
 
 .tumblerItem {
@@ -40,10 +76,27 @@
 	x: 5;
 }
 
-#tumblerSeparator {
+.tumblerSeparator {
 	font-size: 80;
 	text-anchor: middle;
-	fill: white;
 	x: 66%;
 	y: 50%+30;
+}
+
+.tumblerUnit {
+ font-size: 80;
+ text-anchor: start;
+ x: 92%;
+ y: 50%+30;
+}
+
+/* 2nd screen */
+#txtWeightList {
+	x: 0;
+	y: 10%;
+	width: 100%;
+	height: 90%;
+	font-size: 12;
+	text-anchor: start;
+	display-align: before;
 }
