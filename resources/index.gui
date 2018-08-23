@@ -31,7 +31,7 @@
 			</use>
 			
 			//entry pop up weight
-			<svg id="containerEntryWeight" viewport-fill="black" opacity="0.8">
+			<svg id="containerEntryWeight" viewport-fill="black" opacity="0.8" display="none">
 		
 				//tumblers for weight entry
 				<use id="weightTumblerInt" href="#tumblerview" class="tumbler tumblerInt">
@@ -146,7 +146,7 @@
   	</svg>  //weight entry pop up
   	
   	//entry pop up fat
-			<svg id="containerEntryFat" viewport-fill="black" opacity="0.8">
+			<svg id="containerEntryFat" viewport-fill="black" opacity="0.8" display="none">
 		
 				//tumblers for fat entry
 				<use id="fatTumblerInt" href="#tumblerview" class="tumbler tumblerInt">

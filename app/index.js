@@ -29,17 +29,12 @@ let fatTumblerSeparator = document.getElementById("fatTumblerSeparator");
 let fatBtnSubmit = document.getElementById("fatBtnSubmit");
 let fatBtnReject = document.getElementById("fatBtnReject");
 
-// The save button should be hidden by default
-save.style.display = "none";
-minusOne.style.display = "none";
+//*** 2nd screen ***
+let txtWeightList = document.getElementById("txtWeightList");
+let btnRefresh = document.getElementById("btnRefresh");
 
-
-// Used to count the new water being added
-let newWaterCount = 0;
-
-// Assign units
-let units = "fl oz";
-unitsText.text = units;
+// Used to count the new weight & fat entries being added
+let newEntryCount = 0;
 
 // grab goal and summary from cached file
 let goal, summary, fileValue;
