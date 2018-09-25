@@ -54,16 +54,29 @@ function postWeightData(data, accessToken) {
 
     // build JSON string to be posted
     let date = data.date;
-    let dataPOST = {
+    let dataPOST;
+    let bodyString;
+
+    if (data.fat) {
+        dataPOST = {
             'weight': data.weight,
             'fat' : data.fat,
             'date': `${date.getFullYear()}-${utils.zeroPad(date.getMonth() + 1)}-${utils.zeroPad(date.getDate())}`, //YYYY-MM-DD
             'time': `${utils.zeroPad(date.getHours())}:${utils.zeroPad(date.getMinutes())}:${utils.zeroPad(date.getSeconds())}` //HH:MM:SS
+        }
+        bodyString = `weight=${dataPOST.weight}&fat=${dataPOST.fat}&date=${dataPOST.date}&time=${dataPOST.time}`;
+    } else {
+        dataPOST = {
+            'weight': data.weight,
+            'date': `${date.getFullYear()}-${utils.zeroPad(date.getMonth() + 1)}-${utils.zeroPad(date.getDate())}`, //YYYY-MM-DD
+            'time': `${utils.zeroPad(date.getHours())}:${utils.zeroPad(date.getMinutes())}:${utils.zeroPad(date.getSeconds())}` //HH:MM:SS
+        }
+        bodyString = `weight=${dataPOST.weight}&date=${dataPOST.date}&time=${dataPOST.time}`;       
     }
-    let bodyString = `weight=${dataPOST.weight}&fat=${dataPOST.fat}&date=${dataPOST.date}&time=${dataPOST.time}`;
     debug("Defined weight POST data: " + JSON.stringify(dataPOST) + "/" + bodyString);
-
     let targetURL = `${URL_BASE}${URL_WEIGHT_POST}${URL_END}?${bodyString}`
+    
+    // fetch POST the data
     debug(`Fetching POST: ${targetURL}`);
     fetch(targetURL, {
         method: "POST",
@@ -83,6 +96,6 @@ function postWeightData(data, accessToken) {
     .catch(err => debug('[FETCH error POST]: ' + err));
 }   
 
-  export { fetchWeightData, postWeightData };
+export { fetchWeightData, postWeightData };
 
 

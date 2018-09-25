@@ -84,8 +84,22 @@
 	width: 50%;
 }
 
+.tumblerIntC {
+	x: 0;
+	width: 17%;
+}
+
+.tumblerIntD {
+	x: 17%;
+	width: 17%;
+}
+.tumblerIntS {
+	x: 34%;
+	width: 17%;
+}
+
 .tumblerFloat {
-	x: 50%;
+	x: 51%;
 	width: 25%;
 }
 
