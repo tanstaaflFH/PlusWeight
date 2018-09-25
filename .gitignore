@@ -1,1 +1,4 @@
 secrets.json
+/.vscode
+/node_modules
+/build

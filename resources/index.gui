@@ -1,291 +1,1692 @@
 <svg>
 
-	<def>
-		//header
-		<symbol id="headerSymbol">
-			<text id="txtUnsynced" class="txtColor txtHeader"/>
-			<text id="txtClock" class="txtColor txtHeader"/>
-			<line id="headSeparator"/>
-		</symbol>
-	</def>
+    <!-- symbols -->
+    <defs>
+        <!-- header -->
+        <symbol id="headerSymbol">
+            <text id="txtUnsynced" class="txtHeader">x entries remaining</text>
+            <text id="txtClock" class="txtHeader">xx:xx</text>
+            <line id="headSeparator" class="headSeparator" />
+        </symbol>
+    </defs>
 
-	<use id="panScreens" href="#panoramaview"> 
-	
-		<use id="screen0" href="#panoramaview-item"> 
+    <use id="panScreens" href="#panoramaview"> 
 
-			//header
-			<use href="#headerSymbol"/>
-		
-			//info text
-			<text id="txtInfo" class="txtColor">Please enter your weight:</text>
-			
-			//new weight entry buttons
-	 	<use id="btnNewWeightComb" href="#combo-button-lower-right" fill="fb-lime">
-    <set href="combo-button-icon" attributeName="href" to="btn_combo_check_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_check_press_p.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-			</use>
-			
-			<use id="btnNewWeight" href="#square-button" > 
-				<set href="#text" attributeName="text-buffer" to="New weight entry" /> 
-			</use>
-			
-			//entry pop up weight
-			<svg id="containerEntryWeight" viewport-fill="black" opacity="0.8" display="none">
-		
-				//tumblers for weight entry
-				<use id="weightTumblerInt" href="#tumblerview" class="tumbler tumblerInt">
-				
-  			<use id="weightItemInt000" href="#tumbler-item" class="tumblerItem">
-   	 	<text id="content">000</text>
-    </use>
-    <use id="weightItemInt001" href="#tumbler-item" class="tumblerItem">
-						<text id="content">001</text>
-    </use>
-					<use id="weightItemInt002" href="#tumbler-item" class="tumblerItem">
-						<text id="content">002</text>
-					</use>
-					<use id="weightItemInt003" href="#tumbler-item" class="tumblerItem">
-     <text id="content">003</text>
-    </use>
-					<use id="weightItemInt004" href="#tumbler-item" class="tumblerItem">
-     <text id="content">004</text>
-    </use>
-    <use id="weightItemInt005" href="#tumbler-item" class="tumblerItem">
-     <text id="content">005</text>
-    </use>
-    <use id="weightItemInt006" href="#tumbler-item" class="tumblerItem">
-     <text id="content">006</text>
-    </use>
-    <use id="weightItemInt007" href="#tumbler-item" class="tumblerItem">
-     <text id="content">007</text>
-    </use>
-    <use id="weightItemInt008" href="#tumbler-item" class="tumblerItem">
-     <text id="content">008</text>
-    </use>
-    <use id="weightItemInt009" href="#tumbler-item" class="tumblerItem">
-     <text id="content">009</text>
-    </use>
-  	 	<use id="weightItemInt010" href="#tumbler-item" class="tumblerItem">
-   	 	<text id="content">010</text>
-    </use>
-    <use id="weightItemInt011" href="#tumbler-item" class="tumblerItem">
-						<text id="content">011</text>
-    </use>
-					<use id="weightItemInt012" href="#tumbler-item" class="tumblerItem">
-						<text id="content">012</text>
-					</use>
-					<use id="weightItemInt013" href="#tumbler-item" class="tumblerItem">
-     <text id="content">013</text>
-    </use>
-					<use id="weightItemInt014" href="#tumbler-item" class="tumblerItem">
-     <text id="content">014</text>
-    </use>
-    <use id="weightItemInt015" href="#tumbler-item" class="tumblerItem">
-     <text id="content">015</text>
-    </use>
-    <use id="weightItemInt016" href="#tumbler-item" class="tumblerItem">
-     <text id="content">016</text>
-    </use>
-    <use id="weightItemInt017" href="#tumbler-item" class="tumblerItem">
-     <text id="content">017</text>
-    </use>
-    <use id="weightItemInt018" href="#tumbler-item" class="tumblerItem">
-     <text id="content">018</text>
-    </use>
-    <use id="weightItemInt019" href="#tumbler-item" class="tumblerItem">
-     <text id="content">019</text>
-    </use>
-    
-				</use> //weightTumblerInt
-		
-				<text id="weightTumblerSeparator" class="txtColor tumblerSeparator">,</text>
-		
-				<use id="weightTumblerFloat" href="#tumblerview" class="tumbler tumblerFloat">
-  	 	
-  	 	<use id="weightItemFloat0" href="#tumbler-item" class="tumblerItem">
-   	 	<text id="content">0</text>
-    </use>
-    <use id="weightItemFloat1" href="#tumbler-item" class="tumblerItem">
-						<text id="content">1</text>
-    </use>
-					<use id="weightItemFloat2" href="#tumbler-item" class="tumblerItem">
-						<text id="content">2</text>
-					</use>
-					<use id="weightItemFloat3" href="#tumbler-item" class="tumblerItem">
-     <text id="content">3</text>
-    </use>
-					<use id="weightItemFloat4" href="#tumbler-item" class="tumblerItem">
-     <text id="content">4</text>
-    </use>
-    <use id="weightItemFloat5" href="#tumbler-item" class="tumblerItem">
-     <text id="content">5</text>
-    </use>
-    <use id="weightItemFloat6" href="#tumbler-item" class="tumblerItem">
-     <text id="content">6</text>
-    </use>
-    <use id="weightItemFloat7" href="#tumbler-item" class="tumblerItem">
-    
-   </use> //weightTumblerFloat
-   
-   <text id="weightTumblerUnit" class="txtColor tumblerUnit">kg</text>
- 
- 			//confirm + reject buttons
-	  	<use id="weightBtnConfirm" href="#combo-button-upper-right" fill="fb-lime">
-    <set href="combo-button-icon" attributeName="href" to="btn_combo_check_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_check_press_p.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-				</use>
-					
-				<use id="weightBtnReject" href="#combo-button-lower-right" fill="fb-magenta">
-    <set href="combo-button-icon" attributeName="href" to="btn_combo_x_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_x_press.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-				</use>
-  		
-  	</svg>  //weight entry pop up
-  	
-  	//entry pop up fat
-			<svg id="containerEntryFat" viewport-fill="black" opacity="0.8" display="none">
-		
-				//tumblers for fat entry
-				<use id="fatTumblerInt" href="#tumblerview" class="tumbler tumblerInt">
-				
-  			<use id="fatItemInt000" href="#tumbler-item" class="tumblerItem">
-   	 	<text id="content">000</text>
-    </use>
-    <use id="fatItemInt001" href="#tumbler-item" class="tumblerItem">
-						<text id="content">001</text>
-    </use>
-					<use id="fatItemInt002" href="#tumbler-item" class="tumblerItem">
-						<text id="content">002</text>
-					</use>
-					<use id="fatItemInt003" href="#tumbler-item" class="tumblerItem">
-     <text id="content">003</text>
-    </use>
-					<use id="fatItemInt004" href="#tumbler-item" class="tumblerItem">
-     <text id="content">004</text>
-    </use>
-    <use id="fatItemInt005" href="#tumbler-item" class="tumblerItem">
-     <text id="content">005</text>
-    </use>
-    <use id="fatItemInt006" href="#tumbler-item" class="tumblerItem">
-     <text id="content">006</text>
-    </use>
-    <use id="fatItemInt007" href="#tumbler-item" class="tumblerItem">
-     <text id="content">007</text>
-    </use>
-    <use id="fatItemInt008" href="#tumbler-item" class="tumblerItem">
-     <text id="content">008</text>
-    </use>
-    <use id="fatItemInt009" href="#tumbler-item" class="tumblerItem">
-     <text id="content">009</text>
-    </use>
-  	 	<use id="fatItemInt010" href="#tumbler-item" class="tumblerItem">
-   	 	<text id="content">010</text>
-    </use>
-    <use id="fatItemInt011" href="#tumbler-item" class="tumblerItem">
-						<text id="content">011</text>
-    </use>
-					<use id="fatItemInt012" href="#tumbler-item" class="tumblerItem">
-						<text id="content">012</text>
-					</use>
-					<use id="fatItemInt013" href="#tumbler-item" class="tumblerItem">
-     <text id="content">013</text>
-    </use>
-					<use id="fatItemInt014" href="#tumbler-item" class="tumblerItem">
-     <text id="content">014</text>
-    </use>
-    <use id="fatItemInt015" href="#tumbler-item" class="tumblerItem">
-     <text id="content">015</text>
-    </use>
-    <use id="fatItemInt016" href="#tumbler-item" class="tumblerItem">
-     <text id="content">016</text>
-    </use>
-    <use id="fatItemInt017" href="#tumbler-item" class="tumblerItem">
-     <text id="content">017</text>
-    </use>
-    <use id="fatItemInt018" href="#tumbler-item" class="tumblerItem">
-     <text id="content">018</text>
-    </use>
-    <use id="fatItemInt019" href="#tumbler-item" class="tumblerItem">
-     <text id="content">019</text>
-    </use>
-    
-				</use> //fatTumblerInt
-		
-				<text id="fatTumblerSeparator" class="txtColor tumblerSeparator">,</text>
-		
-				<use id="fatTumblerFloat" href="#tumblerview" class="tumbler tumblerFloat">
-  	 	
-  	 	<use id="fatItemFloat0" href="#tumbler-item" class="tumblerItem">
-   	 	<text id="content">0</text>
-    </use>
-    <use id="fatItemFloat1" href="#tumbler-item" class="tumblerItem">
-						<text id="content">1</text>
-    </use>
-					<use id="fatItemFloat2" href="#tumbler-item" class="tumblerItem">
-						<text id="content">2</text>
-					</use>
-					<use id="fatItemFloat3" href="#tumbler-item" class="tumblerItem">
-     <text id="content">3</text>
-    </use>
-					<use id="fatItemFloat4" href="#tumbler-item" class="tumblerItem">
-     <text id="content">4</text>
-    </use>
-    <use id="fatItemFloat5" href="#tumbler-item" class="tumblerItem">
-     <text id="content">5</text>
-    </use>
-    <use id="fatItemFloat6" href="#tumbler-item" class="tumblerItem">
-     <text id="content">6</text>
-    </use>
-    <use id="fatItemFloat7" href="#tumbler-item" class="tumblerItem">
-    
-   </use> //fatTumblerFloat
-   
-   <text id="fatTumblerUnit" class="txtColor tumblerUnit">%</text>
- 
- 			//confirm + reject buttons
-	  	<use id="fatBtnConfirm" href="#combo-button-upper-right" fill="fb-lime">
-    <set href="combo-button-icon" attributeName="href" to="btn_combo_check_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_check_press_p.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-				</use>
-					
-				<use id="fatBtnReject" href="#combo-button-lower-right" fill="fb-magenta">
-    <set href="combo-button-icon" attributeName="href" to="btn_combo_x_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_x_press.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-				</use>
-  		
-  	</svg>  //fat entry pop up
-		
-		</use> //panoramic view screen0
-			
-		<use id="screen1" href="#panoramaview-item"> 
+        <use id="screen0" href="#panoramaview-item"> 
 
-			//header
-			<use href="#headerSymbol"/>
-			
-			//info text old weight entries
-			<textarea id="txtWeightList" class="txtColor" />
-			
-			//refresh button
-			<use id="btnRefresh" href="#combo-button-lower-right" fill="fb-yellow">
-    		<set href="combo-button-icon" attributeName="href" to="btn_combo_reset_p.png"/>
-    		<set href="combo-button-icon-press" attributeName="href" to="btn_combo_reset_p.png"/>
-    		<set href="combo-button-stroke" attributeName="display" to="inline"/>
-  	</use>
-			
-		</use>
-		
-		<use id="pagination-dots" href="#pagination-widget" y="97%"> 
-			<use href="#pagination-dot" /> 
-			<use href="#pagination-dot" /> 
-			<use href="#pagination-dot" /> 		
-			<use href="#pagination-highlight-dot" /> 
-		</use>
-			
-	</use>
-	
+            <!-- header -->
+            <use id="mainHeader" href="#headerSymbol"/>
+
+            <!-- Welcome text -->
+            <textarea id="welcomeText">Welcome to WeightLogged</textarea>
+
+            <!-- weight entry button rect -->
+            <use id="btnNewWeight" href="#square-button" > 
+                <set href="#text" attributeName="text-buffer" to="Add a new weight entry" /> 
+            </use>
+
+            <!-- pop up weight entry -->
+            <svg id="containerEntryWeight" display="none">
+
+                <!-- background -->
+                <rect id="bgContainerEntryWeight" class="bgPopUp" />
+
+                <!-- tumblers for weight entry -->
+                <use id="weightTumblerInt" href="#tumblerview" class="tumbler tumblerInt">
+
+                    <use id="weightItemInt000" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">000</text>
+                    </use>
+                    <use id="weightItemInt001" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">001</text>
+                    </use>
+                    <use id="weightItemInt002" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">002</text>
+                    </use>
+                    <use id="weightItemInt003" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">003</text>
+                    </use>
+                    <use id="weightItemInt004" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">004</text>
+                    </use>
+                    <use id="weightItemInt005" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">005</text>
+                    </use>
+                    <use id="weightItemInt006" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">006</text>
+                    </use>
+                    <use id="weightItemInt007" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">007</text>
+                    </use>
+                    <use id="weightItemInt008" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">008</text>
+                    </use>
+                    <use id="weightItemInt009" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">009</text>
+                    </use>
+                    <use id="weightItemInt010" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">010</text>
+                    </use>
+                    <use id="weightItemInt011" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">011</text>
+                    </use>
+                    <use id="weightItemInt012" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">012</text>
+                    </use>
+                    <use id="weightItemInt013" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">013</text>
+                    </use>
+                    <use id="weightItemInt014" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">014</text>
+                    </use>
+                    <use id="weightItemInt015" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">015</text>
+                    </use>
+                    <use id="weightItemInt016" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">016</text>
+                    </use>
+                    <use id="weightItemInt017" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">017</text>
+                    </use>
+                    <use id="weightItemInt018" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">018</text>
+                    </use>
+                    <use id="weightItemInt019" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">019</text>
+                    </use>
+                    <use id="weightItemInt020" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">020</text>
+                    </use>
+                    <use id="weightItemInt021" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">021</text>
+                    </use>
+                    <use id="weightItemInt022" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">022</text>
+                    </use>
+                    <use id="weightItemInt023" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">023</text>
+                    </use>
+                    <use id="weightItemInt024" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">024</text>
+                    </use>
+                    <use id="weightItemInt025" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">025</text>
+                    </use>
+                    <use id="weightItemInt026" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">026</text>
+                    </use>
+                    <use id="weightItemInt027" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">027</text>
+                    </use>
+                    <use id="weightItemInt028" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">028</text>
+                    </use>
+                    <use id="weightItemInt029" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">029</text>
+                    </use>
+                    <use id="weightItemInt030" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">030</text>
+                    </use>
+                    <use id="weightItemInt031" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">031</text>
+                    </use>
+                    <use id="weightItemInt032" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">032</text>
+                    </use>
+                    <use id="weightItemInt033" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">033</text>
+                    </use>
+                    <use id="weightItemInt034" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">034</text>
+                    </use>
+                    <use id="weightItemInt035" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">035</text>
+                    </use>
+                    <use id="weightItemInt036" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">036</text>
+                    </use>
+                    <use id="weightItemInt037" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">037</text>
+                    </use>
+                    <use id="weightItemInt038" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">038</text>
+                    </use>
+                    <use id="weightItemInt039" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">039</text>
+                    </use>
+                    <use id="weightItemInt040" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">040</text>
+                    </use>
+                    <use id="weightItemInt041" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">041</text>
+                    </use>
+                    <use id="weightItemInt042" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">042</text>
+                    </use>
+                    <use id="weightItemInt043" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">043</text>
+                    </use>
+                    <use id="weightItemInt044" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">044</text>
+                    </use>
+                    <use id="weightItemInt045" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">045</text>
+                    </use>
+                    <use id="weightItemInt046" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">046</text>
+                    </use>
+                    <use id="weightItemInt047" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">047</text>
+                    </use>
+                    <use id="weightItemInt048" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">048</text>
+                    </use>
+                    <use id="weightItemInt049" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">049</text>
+                    </use>
+                    <use id="weightItemInt050" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">050</text>
+                    </use>
+                    <use id="weightItemInt051" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">051</text>
+                    </use>
+                    <use id="weightItemInt052" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">052</text>
+                    </use>
+                    <use id="weightItemInt053" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">053</text>
+                    </use>
+                    <use id="weightItemInt054" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">054</text>
+                    </use>
+                    <use id="weightItemInt055" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">055</text>
+                    </use>
+                    <use id="weightItemInt056" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">056</text>
+                    </use>
+                    <use id="weightItemInt057" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">057</text>
+                    </use>
+                    <use id="weightItemInt058" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">058</text>
+                    </use>
+                    <use id="weightItemInt059" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">059</text>
+                    </use>
+                    <use id="weightItemInt060" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">060</text>
+                    </use>
+                    <use id="weightItemInt061" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">061</text>
+                    </use>
+                    <use id="weightItemInt062" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">062</text>
+                    </use>
+                    <use id="weightItemInt063" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">063</text>
+                    </use>
+                    <use id="weightItemInt064" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">064</text>
+                    </use>
+                    <use id="weightItemInt065" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">065</text>
+                    </use>
+                    <use id="weightItemInt066" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">066</text>
+                    </use>
+                    <use id="weightItemInt067" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">067</text>
+                    </use>
+                    <use id="weightItemInt068" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">068</text>
+                    </use>
+                    <use id="weightItemInt069" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">069</text>
+                    </use>
+                    <use id="weightItemInt070" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">070</text>
+                    </use>
+                    <use id="weightItemInt071" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">071</text>
+                    </use>
+                    <use id="weightItemInt072" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">072</text>
+                    </use>
+                    <use id="weightItemInt073" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">073</text>
+                    </use>
+                    <use id="weightItemInt074" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">074</text>
+                    </use>
+                    <use id="weightItemInt075" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">075</text>
+                    </use>
+                    <use id="weightItemInt076" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">076</text>
+                    </use>
+                    <use id="weightItemInt077" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">077</text>
+                    </use>
+                    <use id="weightItemInt078" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">078</text>
+                    </use>
+                    <use id="weightItemInt079" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">079</text>
+                    </use>
+                    <use id="weightItemInt080" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">080</text>
+                    </use>
+                    <use id="weightItemInt081" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">081</text>
+                    </use>
+                    <use id="weightItemInt082" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">082</text>
+                    </use>
+                    <use id="weightItemInt083" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">083</text>
+                    </use>
+                    <use id="weightItemInt084" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">084</text>
+                    </use>
+                    <use id="weightItemInt085" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">085</text>
+                    </use>
+                    <use id="weightItemInt086" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">086</text>
+                    </use>
+                    <use id="weightItemInt087" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">087</text>
+                    </use>
+                    <use id="weightItemInt088" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">088</text>
+                    </use>
+                    <use id="weightItemInt089" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">089</text>
+                    </use>
+                    <use id="weightItemInt090" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">090</text>
+                    </use>
+                    <use id="weightItemInt091" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">091</text>
+                    </use>
+                    <use id="weightItemInt092" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">092</text>
+                    </use>
+                    <use id="weightItemInt093" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">093</text>
+                    </use>
+                    <use id="weightItemInt094" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">094</text>
+                    </use>
+                    <use id="weightItemInt095" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">095</text>
+                    </use>
+                    <use id="weightItemInt096" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">096</text>
+                    </use>
+                    <use id="weightItemInt097" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">097</text>
+                    </use>
+                    <use id="weightItemInt098" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">098</text>
+                    </use>
+                    <use id="weightItemInt099" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">099</text>
+                    </use>
+                    <!-- 100 -->
+                    <use id="weightItemInt100" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">100</text>
+                    </use>
+                    <use id="weightItemInt101" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">101</text>
+                    </use>
+                    <use id="weightItemInt102" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">102</text>
+                    </use>
+                    <use id="weightItemInt103" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">103</text>
+                    </use>
+                    <use id="weightItemInt104" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">104</text>
+                    </use>
+                    <use id="weightItemInt105" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">105</text>
+                    </use>
+                    <use id="weightItemInt106" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">106</text>
+                    </use>
+                    <use id="weightItemInt107" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">107</text>
+                    </use>
+                    <use id="weightItemInt108" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">108</text>
+                    </use>
+                    <use id="weightItemInt109" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">109</text>
+                    </use>
+                    <use id="weightItemInt110" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">110</text>
+                    </use>
+                    <use id="weightItemInt111" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">111</text>
+                    </use>
+                    <use id="weightItemInt112" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">112</text>
+                    </use>
+                    <use id="weightItemInt113" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">113</text>
+                    </use>
+                    <use id="weightItemInt114" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">114</text>
+                    </use>
+                    <use id="weightItemInt115" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">115</text>
+                    </use>
+                    <use id="weightItemInt116" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">116</text>
+                    </use>
+                    <use id="weightItemInt117" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">117</text>
+                    </use>
+                    <use id="weightItemInt118" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">118</text>
+                    </use>
+                    <use id="weightItemInt119" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">119</text>
+                    </use>
+                    <use id="weightItemInt120" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">120</text>
+                    </use>
+                    <use id="weightItemInt121" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">121</text>
+                    </use>
+                    <use id="weightItemInt122" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">122</text>
+                    </use>
+                    <use id="weightItemInt123" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">123</text>
+                    </use>
+                    <use id="weightItemInt124" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">124</text>
+                    </use>
+                    <use id="weightItemInt125" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">125</text>
+                    </use>
+                    <use id="weightItemInt126" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">126</text>
+                    </use>
+                    <use id="weightItemInt127" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">127</text>
+                    </use>
+                    <use id="weightItemInt128" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">128</text>
+                    </use>
+                    <use id="weightItemInt129" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">129</text>
+                    </use>
+                    <use id="weightItemInt130" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">130</text>
+                    </use>
+                    <use id="weightItemInt131" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">131</text>
+                    </use>
+                    <use id="weightItemInt132" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">132</text>
+                    </use>
+                    <use id="weightItemInt133" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">133</text>
+                    </use>
+                    <use id="weightItemInt134" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">134</text>
+                    </use>
+                    <use id="weightItemInt135" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">135</text>
+                    </use>
+                    <use id="weightItemInt136" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">136</text>
+                    </use>
+                    <use id="weightItemInt137" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">137</text>
+                    </use>
+                    <use id="weightItemInt138" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">138</text>
+                    </use>
+                    <use id="weightItemInt139" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">139</text>
+                    </use>
+                    <use id="weightItemInt140" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">140</text>
+                    </use>
+                    <use id="weightItemInt141" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">141</text>
+                    </use>
+                    <use id="weightItemInt142" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">142</text>
+                    </use>
+                    <use id="weightItemInt143" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">143</text>
+                    </use>
+                    <use id="weightItemInt144" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">144</text>
+                    </use>
+                    <use id="weightItemInt145" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">145</text>
+                    </use>
+                    <use id="weightItemInt146" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">146</text>
+                    </use>
+                    <use id="weightItemInt147" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">147</text>
+                    </use>
+                    <use id="weightItemInt148" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">148</text>
+                    </use>
+                    <use id="weightItemInt149" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">149</text>
+                    </use>
+                    <use id="weightItemInt150" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">150</text>
+                    </use>
+                    <use id="weightItemInt151" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">151</text>
+                    </use>
+                    <use id="weightItemInt152" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">152</text>
+                    </use>
+                    <use id="weightItemInt153" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">153</text>
+                    </use>
+                    <use id="weightItemInt154" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">154</text>
+                    </use>
+                    <use id="weightItemInt155" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">155</text>
+                    </use>
+                    <use id="weightItemInt156" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">156</text>
+                    </use>
+                    <use id="weightItemInt157" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">157</text>
+                    </use>
+                    <use id="weightItemInt158" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">158</text>
+                    </use>
+                    <use id="weightItemInt159" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">159</text>
+                    </use>
+                    <use id="weightItemInt160" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">160</text>
+                    </use>
+                    <use id="weightItemInt161" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">161</text>
+                    </use>
+                    <use id="weightItemInt162" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">162</text>
+                    </use>
+                    <use id="weightItemInt163" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">163</text>
+                    </use>
+                    <use id="weightItemInt164" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">164</text>
+                    </use>
+                    <use id="weightItemInt165" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">165</text>
+                    </use>
+                    <use id="weightItemInt166" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">166</text>
+                    </use>
+                    <use id="weightItemInt167" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">167</text>
+                    </use>
+                    <use id="weightItemInt168" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">168</text>
+                    </use>
+                    <use id="weightItemInt169" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">169</text>
+                    </use>
+                    <use id="weightItemInt170" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">170</text>
+                    </use>
+                    <use id="weightItemInt171" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">171</text>
+                    </use>
+                    <use id="weightItemInt172" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">172</text>
+                    </use>
+                    <use id="weightItemInt173" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">173</text>
+                    </use>
+                    <use id="weightItemInt174" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">174</text>
+                    </use>
+                    <use id="weightItemInt175" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">175</text>
+                    </use>
+                    <use id="weightItemInt176" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">176</text>
+                    </use>
+                    <use id="weightItemInt177" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">177</text>
+                    </use>
+                    <use id="weightItemInt178" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">178</text>
+                    </use>
+                    <use id="weightItemInt179" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">179</text>
+                    </use>
+                    <use id="weightItemInt180" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">180</text>
+                    </use>
+                    <use id="weightItemInt181" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">181</text>
+                    </use>
+                    <use id="weightItemInt182" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">182</text>
+                    </use>
+                    <use id="weightItemInt183" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">183</text>
+                    </use>
+                    <use id="weightItemInt184" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">184</text>
+                    </use>
+                    <use id="weightItemInt185" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">185</text>
+                    </use>
+                    <use id="weightItemInt186" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">186</text>
+                    </use>
+                    <use id="weightItemInt187" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">187</text>
+                    </use>
+                    <use id="weightItemInt188" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">188</text>
+                    </use>
+                    <use id="weightItemInt189" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">189</text>
+                    </use>
+                    <use id="weightItemInt190" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">190</text>
+                    </use>
+                    <use id="weightItemInt191" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">191</text>
+                    </use>
+                    <use id="weightItemInt192" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">192</text>
+                    </use>
+                    <use id="weightItemInt193" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">193</text>
+                    </use>
+                    <use id="weightItemInt194" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">194</text>
+                    </use>
+                    <use id="weightItemInt195" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">195</text>
+                    </use>
+                    <use id="weightItemInt196" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">196</text>
+                    </use>
+                    <use id="weightItemInt197" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">197</text>
+                    </use>
+                    <use id="weightItemInt198" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">198</text>
+                    </use>
+                    <use id="weightItemInt199" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">199</text>
+                    </use>
+                    <!-- 200 -->
+                    <use id="weightItemInt200" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">200</text>
+                    </use>
+                    <use id="weightItemInt201" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">201</text>
+                    </use>
+                    <use id="weightItemInt202" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">202</text>
+                    </use>
+                    <use id="weightItemInt203" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">203</text>
+                    </use>
+                    <use id="weightItemInt204" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">204</text>
+                    </use>
+                    <use id="weightItemInt205" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">205</text>
+                    </use>
+                    <use id="weightItemInt206" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">206</text>
+                    </use>
+                    <use id="weightItemInt207" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">207</text>
+                    </use>
+                    <use id="weightItemInt208" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">208</text>
+                    </use>
+                    <use id="weightItemInt209" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">209</text>
+                    </use>
+                    <use id="weightItemInt210" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">210</text>
+                    </use>
+                    <use id="weightItemInt211" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">211</text>
+                    </use>
+                    <use id="weightItemInt212" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">212</text>
+                    </use>
+                    <use id="weightItemInt213" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">213</text>
+                    </use>
+                    <use id="weightItemInt214" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">214</text>
+                    </use>
+                    <use id="weightItemInt215" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">215</text>
+                    </use>
+                    <use id="weightItemInt216" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">216</text>
+                    </use>
+                    <use id="weightItemInt217" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">217</text>
+                    </use>
+                    <use id="weightItemInt218" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">218</text>
+                    </use>
+                    <use id="weightItemInt219" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">219</text>
+                    </use>
+                    <use id="weightItemInt220" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">220</text>
+                    </use>
+                    <use id="weightItemInt221" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">221</text>
+                    </use>
+                    <use id="weightItemInt222" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">222</text>
+                    </use>
+                    <use id="weightItemInt223" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">223</text>
+                    </use>
+                    <use id="weightItemInt224" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">224</text>
+                    </use>
+                    <use id="weightItemInt225" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">225</text>
+                    </use>
+                    <use id="weightItemInt226" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">226</text>
+                    </use>
+                    <use id="weightItemInt227" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">227</text>
+                    </use>
+                    <use id="weightItemInt228" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">228</text>
+                    </use>
+                    <use id="weightItemInt229" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">229</text>
+                    </use>
+                    <use id="weightItemInt230" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">230</text>
+                    </use>
+                    <use id="weightItemInt231" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">231</text>
+                    </use>
+                    <use id="weightItemInt232" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">232</text>
+                    </use>
+                    <use id="weightItemInt233" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">233</text>
+                    </use>
+                    <use id="weightItemInt234" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">234</text>
+                    </use>
+                    <use id="weightItemInt235" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">235</text>
+                    </use>
+                    <use id="weightItemInt236" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">236</text>
+                    </use>
+                    <use id="weightItemInt237" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">237</text>
+                    </use>
+                    <use id="weightItemInt238" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">238</text>
+                    </use>
+                    <use id="weightItemInt239" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">239</text>
+                    </use>
+                    <use id="weightItemInt240" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">240</text>
+                    </use>
+                    <use id="weightItemInt241" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">241</text>
+                    </use>
+                    <use id="weightItemInt242" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">242</text>
+                    </use>
+                    <use id="weightItemInt243" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">243</text>
+                    </use>
+                    <use id="weightItemInt244" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">244</text>
+                    </use>
+                    <use id="weightItemInt245" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">245</text>
+                    </use>
+                    <use id="weightItemInt246" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">246</text>
+                    </use>
+                    <use id="weightItemInt247" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">247</text>
+                    </use>
+                    <use id="weightItemInt248" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">248</text>
+                    </use>
+                    <use id="weightItemInt249" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">249</text>
+                    </use>
+                    <use id="weightItemInt250" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">250</text>
+                    </use>
+                    <use id="weightItemInt251" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">251</text>
+                    </use>
+                    <use id="weightItemInt252" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">252</text>
+                    </use>
+                    <use id="weightItemInt253" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">253</text>
+                    </use>
+                    <use id="weightItemInt254" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">254</text>
+                    </use>
+                    <use id="weightItemInt255" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">255</text>
+                    </use>
+                    <use id="weightItemInt256" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">256</text>
+                    </use>
+                    <use id="weightItemInt257" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">257</text>
+                    </use>
+                    <use id="weightItemInt258" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">258</text>
+                    </use>
+                    <use id="weightItemInt259" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">259</text>
+                    </use>
+                    <use id="weightItemInt260" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">260</text>
+                    </use>
+                    <use id="weightItemInt261" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">261</text>
+                    </use>
+                    <use id="weightItemInt262" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">262</text>
+                    </use>
+                    <use id="weightItemInt263" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">263</text>
+                    </use>
+                    <use id="weightItemInt264" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">264</text>
+                    </use>
+                    <use id="weightItemInt265" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">265</text>
+                    </use>
+                    <use id="weightItemInt266" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">266</text>
+                    </use>
+                    <use id="weightItemInt267" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">267</text>
+                    </use>
+                    <use id="weightItemInt268" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">268</text>
+                    </use>
+                    <use id="weightItemInt269" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">269</text>
+                    </use>
+                    <use id="weightItemInt270" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">270</text>
+                    </use>
+                    <use id="weightItemInt271" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">271</text>
+                    </use>
+                    <use id="weightItemInt272" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">272</text>
+                    </use>
+                    <use id="weightItemInt273" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">273</text>
+                    </use>
+                    <use id="weightItemInt274" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">274</text>
+                    </use>
+                    <use id="weightItemInt275" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">275</text>
+                    </use>
+                    <use id="weightItemInt276" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">276</text>
+                    </use>
+                    <use id="weightItemInt277" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">277</text>
+                    </use>
+                    <use id="weightItemInt278" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">278</text>
+                    </use>
+                    <use id="weightItemInt279" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">279</text>
+                    </use>
+                    <use id="weightItemInt280" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">280</text>
+                    </use>
+                    <use id="weightItemInt281" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">281</text>
+                    </use>
+                    <use id="weightItemInt282" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">282</text>
+                    </use>
+                    <use id="weightItemInt283" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">283</text>
+                    </use>
+                    <use id="weightItemInt284" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">284</text>
+                    </use>
+                    <use id="weightItemInt285" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">285</text>
+                    </use>
+                    <use id="weightItemInt286" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">286</text>
+                    </use>
+                    <use id="weightItemInt287" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">287</text>
+                    </use>
+                    <use id="weightItemInt288" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">288</text>
+                    </use>
+                    <use id="weightItemInt289" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">289</text>
+                    </use>
+                    <use id="weightItemInt290" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">290</text>
+                    </use>
+                    <use id="weightItemInt291" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">291</text>
+                    </use>
+                    <use id="weightItemInt292" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">292</text>
+                    </use>
+                    <use id="weightItemInt293" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">293</text>
+                    </use>
+                    <use id="weightItemInt294" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">294</text>
+                    </use>
+                    <use id="weightItemInt295" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">295</text>
+                    </use>
+                    <use id="weightItemInt296" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">296</text>
+                    </use>
+                    <use id="weightItemInt297" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">297</text>
+                    </use>
+                    <use id="weightItemInt298" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">298</text>
+                    </use>
+                    <use id="weightItemInt299" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">299</text>
+                    </use>
+                    <!-- 300 -->
+                    <use id="weightItemInt300" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">300</text>
+                    </use>
+                    <use id="weightItemInt301" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">301</text>
+                    </use>
+                    <use id="weightItemInt302" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">302</text>
+                    </use>
+                    <use id="weightItemInt303" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">303</text>
+                    </use>
+                    <use id="weightItemInt304" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">304</text>
+                    </use>
+                    <use id="weightItemInt305" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">305</text>
+                    </use>
+                    <use id="weightItemInt306" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">306</text>
+                    </use>
+                    <use id="weightItemInt307" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">307</text>
+                    </use>
+                    <use id="weightItemInt308" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">308</text>
+                    </use>
+                    <use id="weightItemInt309" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">309</text>
+                    </use>
+                    <use id="weightItemInt310" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">310</text>
+                    </use>
+                    <use id="weightItemInt311" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">311</text>
+                    </use>
+                    <use id="weightItemInt312" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">312</text>
+                    </use>
+                    <use id="weightItemInt313" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">313</text>
+                    </use>
+                    <use id="weightItemInt314" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">314</text>
+                    </use>
+                    <use id="weightItemInt315" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">315</text>
+                    </use>
+                    <use id="weightItemInt316" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">316</text>
+                    </use>
+                    <use id="weightItemInt317" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">317</text>
+                    </use>
+                    <use id="weightItemInt318" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">318</text>
+                    </use>
+                    <use id="weightItemInt319" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">319</text>
+                    </use>
+                    <use id="weightItemInt320" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">320</text>
+                    </use>
+                    <use id="weightItemInt321" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">321</text>
+                    </use>
+                    <use id="weightItemInt322" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">322</text>
+                    </use>
+                    <use id="weightItemInt323" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">323</text>
+                    </use>
+                    <use id="weightItemInt324" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">324</text>
+                    </use>
+                    <use id="weightItemInt325" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">325</text>
+                    </use>
+                    <use id="weightItemInt326" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">326</text>
+                    </use>
+                    <use id="weightItemInt327" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">327</text>
+                    </use>
+                    <use id="weightItemInt328" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">328</text>
+                    </use>
+                    <use id="weightItemInt329" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">329</text>
+                    </use>
+                    <use id="weightItemInt330" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">330</text>
+                    </use>
+                    <use id="weightItemInt331" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">331</text>
+                    </use>
+                    <use id="weightItemInt332" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">332</text>
+                    </use>
+                    <use id="weightItemInt333" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">333</text>
+                    </use>
+                    <use id="weightItemInt334" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">334</text>
+                    </use>
+                    <use id="weightItemInt335" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">335</text>
+                    </use>
+                    <use id="weightItemInt336" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">336</text>
+                    </use>
+                    <use id="weightItemInt337" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">337</text>
+                    </use>
+                    <use id="weightItemInt338" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">338</text>
+                    </use>
+                    <use id="weightItemInt339" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">339</text>
+                    </use>
+                    <use id="weightItemInt340" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">340</text>
+                    </use>
+                    <use id="weightItemInt341" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">341</text>
+                    </use>
+                    <use id="weightItemInt342" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">342</text>
+                    </use>
+                    <use id="weightItemInt343" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">343</text>
+                    </use>
+                    <use id="weightItemInt344" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">344</text>
+                    </use>
+                    <use id="weightItemInt345" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">345</text>
+                    </use>
+                    <use id="weightItemInt346" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">346</text>
+                    </use>
+                    <use id="weightItemInt347" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">347</text>
+                    </use>
+                    <use id="weightItemInt348" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">348</text>
+                    </use>
+                    <use id="weightItemInt349" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">349</text>
+                    </use>
+                    <use id="weightItemInt350" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">350</text>
+                    </use>
+                    <use id="weightItemInt351" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">351</text>
+                    </use>
+                    <use id="weightItemInt352" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">352</text>
+                    </use>
+                    <use id="weightItemInt353" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">353</text>
+                    </use>
+                    <use id="weightItemInt354" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">354</text>
+                    </use>
+                    <use id="weightItemInt355" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">355</text>
+                    </use>
+                    <use id="weightItemInt356" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">356</text>
+                    </use>
+                    <use id="weightItemInt357" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">357</text>
+                    </use>
+                    <use id="weightItemInt358" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">358</text>
+                    </use>
+                    <use id="weightItemInt359" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">359</text>
+                    </use>
+                    <use id="weightItemInt360" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">360</text>
+                    </use>
+                    <use id="weightItemInt361" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">361</text>
+                    </use>
+                    <use id="weightItemInt362" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">362</text>
+                    </use>
+                    <use id="weightItemInt363" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">363</text>
+                    </use>
+                    <use id="weightItemInt364" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">364</text>
+                    </use>
+                    <use id="weightItemInt365" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">365</text>
+                    </use>
+                    <use id="weightItemInt366" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">366</text>
+                    </use>
+                    <use id="weightItemInt367" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">367</text>
+                    </use>
+                    <use id="weightItemInt368" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">368</text>
+                    </use>
+                    <use id="weightItemInt369" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">369</text>
+                    </use>
+                    <use id="weightItemInt370" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">370</text>
+                    </use>
+                    <use id="weightItemInt371" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">371</text>
+                    </use>
+                    <use id="weightItemInt372" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">372</text>
+                    </use>
+                    <use id="weightItemInt373" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">373</text>
+                    </use>
+                    <use id="weightItemInt374" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">374</text>
+                    </use>
+                    <use id="weightItemInt375" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">375</text>
+                    </use>
+                    <use id="weightItemInt376" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">376</text>
+                    </use>
+                    <use id="weightItemInt377" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">377</text>
+                    </use>
+                    <use id="weightItemInt378" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">378</text>
+                    </use>
+                    <use id="weightItemInt379" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">379</text>
+                    </use>
+                    <use id="weightItemInt380" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">380</text>
+                    </use>
+                    <use id="weightItemInt381" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">381</text>
+                    </use>
+                    <use id="weightItemInt382" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">382</text>
+                    </use>
+                    <use id="weightItemInt383" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">383</text>
+                    </use>
+                    <use id="weightItemInt384" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">384</text>
+                    </use>
+                    <use id="weightItemInt385" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">385</text>
+                    </use>
+                    <use id="weightItemInt386" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">386</text>
+                    </use>
+                    <use id="weightItemInt387" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">387</text>
+                    </use>
+                    <use id="weightItemInt388" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">388</text>
+                    </use>
+                    <use id="weightItemInt389" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">389</text>
+                    </use>
+                    <use id="weightItemInt390" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">390</text>
+                    </use>
+                    <use id="weightItemInt391" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">391</text>
+                    </use>
+                    <use id="weightItemInt392" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">392</text>
+                    </use>
+                    <use id="weightItemInt393" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">393</text>
+                    </use>
+                    <use id="weightItemInt394" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">394</text>
+                    </use>
+                    <use id="weightItemInt395" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">395</text>
+                    </use>
+                    <use id="weightItemInt396" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">396</text>
+                    </use>
+                    <use id="weightItemInt397" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">397</text>
+                    </use>
+                    <use id="weightItemInt398" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">398</text>
+                    </use>
+                    <use id="weightItemInt399" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">399</text>
+                    </use>
+                    <!-- 400 -->
+                    <use id="weightItemInt400" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">400</text>
+                    </use>
+
+                </use> <!-- weightTumblerInt -->
+
+                <text id="weightTumblerSeparator" class="tumblerSeparator">.</text>
+
+                <use id="weightTumblerFloat" href="#tumblerview" class="tumbler tumblerFloat">
+
+                    <use id="weightItemFloat0" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">0</text>
+                    </use>
+                    <use id="weightItemFloat1" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">1</text>
+                    </use>
+                    <use id="weightItemFloat2" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">2</text>
+                    </use>
+                    <use id="weightItemFloat3" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">3</text>
+                    </use>
+                    <use id="weightItemFloat4" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">4</text>
+                    </use>
+                    <use id="weightItemFloat5" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">5</text>
+                    </use>
+                    <use id="weightItemFloat6" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">6</text>
+                    </use>
+                    <use id="weightItemFloat7" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">7</text>
+                    </use>
+                    <use id="weightItemFloat8" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">8</text>
+                    </use>
+                    <use id="weightItemFloat9" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">9</text>
+                    </use>
+
+                </use> <!-- weightTumblerFloat -->
+
+                <text id="weightTumblerUnit" class="tumblerUnit">kg</text>
+
+                <!-- header -->
+                <rect id="headBgWeightPopUp" class="bgHead" />
+                <text id="lblWeightPopUp" class="txtHeader" x="5%">Set weight</text>
+                <line id="headSeparatorWeightPopUp" class="headSeparator" x2="78%"/>
+
+            </svg>  <!-- weight entry pop up -->
+
+            <!-- entry pop up fat -->
+            <svg id="containerEntryFat" display="none">
+
+                <!-- background -->
+                <rect id="bgContainerEntryWeight" class="bgPopUp" />
+
+                <!-- tumblers for fat entry -->
+                <use id="fatTumblerInt" href="#tumblerview" class="tumbler tumblerInt">
+
+                    <use id="fatItemInt00" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">00</text>
+                    </use>
+                    <use id="fatItemInt01" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">01</text>
+                    </use>
+                    <use id="fatItemInt02" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">02</text>
+                    </use>
+                    <use id="fatItemInt03" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">03</text>
+                    </use>
+                    <use id="fatItemInt04" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">04</text>
+                    </use>
+                    <use id="fatItemInt05" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">05</text>
+                    </use>
+                    <use id="fatItemInt06" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">06</text>
+                    </use>
+                    <use id="fatItemInt07" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">07</text>
+                    </use>
+                    <use id="fatItemInt08" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">08</text>
+                    </use>
+                    <use id="fatItemInt09" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">09</text>
+                    </use>
+                    <use id="fatItemInt10" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">10</text>
+                    </use>
+                    <use id="fatItemInt11" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">11</text>
+                    </use>
+                    <use id="fatItemInt12" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">12</text>
+                    </use>
+                    <use id="fatItemInt13" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">13</text>
+                    </use>
+                    <use id="fatItemInt14" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">14</text>
+                    </use>
+                    <use id="fatItemInt15" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">15</text>
+                    </use>
+                    <use id="fatItemInt16" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">16</text>
+                    </use>
+                    <use id="fatItemInt17" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">17</text>
+                    </use>
+                    <use id="fatItemInt18" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">18</text>
+                    </use>
+                    <use id="fatItemInt19" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">19</text>
+                    </use>
+                    <use id="fatItemInt20" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">20</text>
+                    </use>
+                    <use id="fatItemInt21" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">21</text>
+                    </use>
+                    <use id="fatItemInt22" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">22</text>
+                    </use>
+                    <use id="fatItemInt23" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">23</text>
+                    </use>
+                    <use id="fatItemInt24" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">24</text>
+                    </use>
+                    <use id="fatItemInt25" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">25</text>
+                    </use>
+                    <use id="fatItemInt26" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">26</text>
+                    </use>
+                    <use id="fatItemInt27" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">27</text>
+                    </use>
+                    <use id="fatItemInt28" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">28</text>
+                    </use>
+                    <use id="fatItemInt29" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">29</text>
+                    </use>
+                    <use id="fatItemInt30" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">30</text>
+                    </use>
+                    <use id="fatItemInt31" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">31</text>
+                    </use>
+                    <use id="fatItemInt32" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">32</text>
+                    </use>
+                    <use id="fatItemInt33" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">33</text>
+                    </use>
+                    <use id="fatItemInt34" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">34</text>
+                    </use>
+                    <use id="fatItemInt35" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">35</text>
+                    </use>
+                    <use id="fatItemInt36" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">36</text>
+                    </use>
+                    <use id="fatItemInt37" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">37</text>
+                    </use>
+                    <use id="fatItemInt38" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">38</text>
+                    </use>
+                    <use id="fatItemInt39" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">39</text>
+                    </use>
+                    <use id="fatItemInt40" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">40</text>
+                    </use>
+                    <use id="fatItemInt41" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">41</text>
+                    </use>
+                    <use id="fatItemInt42" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">42</text>
+                    </use>
+                    <use id="fatItemInt43" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">43</text>
+                    </use>
+                    <use id="fatItemInt44" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">44</text>
+                    </use>
+                    <use id="fatItemInt45" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">45</text>
+                    </use>
+                    <use id="fatItemInt46" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">46</text>
+                    </use>
+                    <use id="fatItemInt47" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">47</text>
+                    </use>
+                    <use id="fatItemInt48" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">48</text>
+                    </use>
+                    <use id="fatItemInt49" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">49</text>
+                    </use>
+                    <use id="fatItemInt50" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">50</text>
+                    </use>
+                    <use id="fatItemInt51" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">51</text>
+                    </use>
+                    <use id="fatItemInt52" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">52</text>
+                    </use>
+                    <use id="fatItemInt53" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">53</text>
+                    </use>
+                    <use id="fatItemInt54" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">54</text>
+                    </use>
+                    <use id="fatItemInt55" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">55</text>
+                    </use>
+                    <use id="fatItemInt56" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">56</text>
+                    </use>
+                    <use id="fatItemInt57" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">57</text>
+                    </use>
+                    <use id="fatItemInt58" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">58</text>
+                    </use>
+                    <use id="fatItemInt59" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">59</text>
+                    </use>
+                    <use id="fatItemInt60" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">60</text>
+                    </use>
+                    <use id="fatItemInt61" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">61</text>
+                    </use>
+                    <use id="fatItemInt62" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">62</text>
+                    </use>
+                    <use id="fatItemInt63" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">63</text>
+                    </use>
+                    <use id="fatItemInt64" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">64</text>
+                    </use>
+                    <use id="fatItemInt65" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">65</text>
+                    </use>
+                    <use id="fatItemInt66" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">66</text>
+                    </use>
+                    <use id="fatItemInt67" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">67</text>
+                    </use>
+                    <use id="fatItemInt68" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">68</text>
+                    </use>
+                    <use id="fatItemInt69" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">69</text>
+                    </use>
+                    <use id="fatItemInt70" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">70</text>
+                    </use>
+                    <use id="fatItemInt71" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">71</text>
+                    </use>
+                    <use id="fatItemInt72" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">72</text>
+                    </use>
+                    <use id="fatItemInt73" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">73</text>
+                    </use>
+                    <use id="fatItemInt74" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">74</text>
+                    </use>
+                    <use id="fatItemInt75" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">75</text>
+                    </use>
+                    <use id="fatItemInt76" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">76</text>
+                    </use>
+                    <use id="fatItemInt77" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">77</text>
+                    </use>
+                    <use id="fatItemInt78" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">78</text>
+                    </use>
+                    <use id="fatItemInt79" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">79</text>
+                    </use>
+                    <use id="fatItemInt80" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">80</text>
+                    </use>
+                    <use id="fatItemInt81" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">81</text>
+                    </use>
+                    <use id="fatItemInt82" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">82</text>
+                    </use>
+                    <use id="fatItemInt83" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">83</text>
+                    </use>
+                    <use id="fatItemInt84" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">84</text>
+                    </use>
+                    <use id="fatItemInt85" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">85</text>
+                    </use>
+                    <use id="fatItemInt86" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">86</text>
+                    </use>
+                    <use id="fatItemInt87" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">87</text>
+                    </use>
+                    <use id="fatItemInt88" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">88</text>
+                    </use>
+                    <use id="fatItemInt89" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">89</text>
+                    </use>
+                    <use id="fatItemInt90" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">90</text>
+                    </use>
+                    <use id="fatItemInt91" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">91</text>
+                    </use>
+                    <use id="fatItemInt92" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">92</text>
+                    </use>
+                    <use id="fatItemInt93" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">93</text>
+                    </use>
+                    <use id="fatItemInt94" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">94</text>
+                    </use>
+                    <use id="fatItemInt95" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">95</text>
+                    </use>
+                    <use id="fatItemInt96" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">96</text>
+                    </use>
+                    <use id="fatItemInt97" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">97</text>
+                    </use>
+                    <use id="fatItemInt98" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">98</text>
+                    </use>
+                    <use id="fatItemInt99" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">99</text>
+                    </use>
+
+                </use> <!-- fatTumblerInt -->
+
+                <text id="fatTumblerSeparator" class="tumblerSeparator" x="45%">.</text>
+
+                <use id="fatTumblerFloat" href="#tumblerview" class="tumbler tumblerFloat" x="45%">
+
+                    <use id="fatItemFloat0" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">0</text>
+                    </use>
+                    <use id="fatItemFloat1" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">1</text>
+                    </use>
+                    <use id="fatItemFloat2" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">2</text>
+                    </use>
+                    <use id="fatItemFloat3" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">3</text>
+                    </use>
+                    <use id="fatItemFloat4" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">4</text>
+                    </use>
+                    <use id="fatItemFloat5" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">5</text>
+                    </use>
+                    <use id="fatItemFloat6" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">6</text>
+                    </use>
+                    <use id="fatItemFloat7" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">7</text>
+                    </use>
+                    <use id="fatItemFloat8" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">8</text>
+                    </use>
+                    <use id="fatItemFloat9" href="#tumbler-item" class="tumblerItem">
+                        <text id="content">9</text>
+                    </use>
+
+                </use> <!-- fatTumblerFloat -->
+
+                <text id="fatTumblerUnit" class="tumblerUnit" x="70%">%</text>
+                
+                <!-- header -->
+                <rect id="headBgFatPopUp" class="bgHead" />
+                <text id="lblFatPopUp" class="txtHeader" x="5%">Set Body Fat</text>
+                <line id="headSeparatorFatPopUp" class="headSeparator" x2="78%"/>
+
+            </svg>  <!-- at entry pop up -->
+
+            <!-- combo buttons -->
+            <use id="cbtTr" href="#combo-button-upper-right" fill="fb-lime">
+                <set href="combo-button-icon" attributeName="href" to="icons/btn_combo_check_p.png"/>
+                <set href="combo-button-icon-press" attributeName="href" to="icons/btn_combo_check_press_p.png"/>
+                <set href="combo-button-stroke" attributeName="display" to="inline"/>
+            </use>
+
+            <use id="cbtLr" href="#combo-button-lower-right" fill="fb-magenta">
+                <set href="combo-button-icon" attributeName="href" to="icons/btn_combo_x_p.png"/>
+                <set href="combo-button-icon-press" attributeName="href" to="icons/btn_combo_x_press.png"/>
+                <set href="combo-button-stroke" attributeName="display" to="inline"/>
+            </use>            
+
+        </use> <!-- panoramic view screen0 -->
+
+        <use id="screen1" href="#panoramaview-item"> 
+
+            //header
+            <use href="#headerSymbol"/>
+
+            //info text old weight entries
+            <textarea id="txtWeightList"  />
+
+            //refresh button
+            <use id="btnRefresh" href="#combo-button-lower-right" fill="fb-yellow">
+                <set href="combo-button-icon" attributeName="href" to="icons/btn_combo_reset_p.png"/>
+                <set href="combo-button-icon-press" attributeName="href" to="icons/btn_combo_reset_p.png"/>
+                <set href="combo-button-stroke" attributeName="display" to="inline"/>
+            </use>
+
+        </use>
+
+        <use id="pagination-dots" href="#pagination-widget" y="97%"> 
+            <use href="#pagination-dot" /> 
+            <use href="#pagination-dot" /> 
+            <use href="#pagination-dot" /> 		
+            <use href="#pagination-highlight-dot" /> 
+        </use>
+
+    </use>
+
 </svg>

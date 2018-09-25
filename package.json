@@ -14,8 +14,18 @@
     ],
     "i18n": {
       "en": {
-        "name": "Water Logged"
+        "name": "Weight-Logged"
       }
     }
+  },
+  "dependencies": {
+    "fitbit": "0.0.7"
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~1.0.0",
+    "@fitbit/sdk-cli": "^1.0.0"
+  },
+  "scripts": {
+    "build": "fitbit-build"
   }
 }
