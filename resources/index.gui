@@ -8,6 +8,13 @@
             <text id="txtClock" class="txtHeader">xx:xx</text>
             <line id="headSeparator" class="headSeparator" />
         </symbol>
+        <!-- list item weight log -->
+        <symbol id="weightLogItem">
+            <text id="txtDate" x="5%" y="25" class="txtListWeightLog">01.01.1990</text>
+            <text id="txtWeight" x="10%" y="50" class="txtListWeightLog">70.5 kg</text>
+            <text id="txtFat" x="50%" y="50" class="txtListWeightLog">17.2 %</text>
+            <line id="separator" x1="0%" x2="100%" y1="60" y2="60" stroke-width="1" fill="fb-light-gray" />
+        </symbol>
     </defs>
 
     <use id="panScreens" href="#panoramaview"> 
@@ -553,11 +560,53 @@
 
         <use id="screen1" href="#panoramaview-item"> 
 
-            //header
-            <use href="#headerSymbol"/>
+            <rect id="bg1" class="background" />
 
-            //info text old weight entries
-            <textarea id="txtWeightList"  />
+            <!-- list -->
+            <svg id="bgTileList1" class="bgList">
+
+                <rect class="background" />
+
+                <use id="listSleep" href="#scrollview">
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog0" href="#weightLogItem" />
+                </use>
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog1" href="#weightLogItem" />
+                </use>
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog2" href="#weightLogItem" />
+                </use>
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog3" href="#weightLogItem" />
+                </use>
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog4" href="#weightLogItem" />
+                </use>
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog5" href="#weightLogItem" />
+                </use>
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog6" href="#weightLogItem" />
+                </use>
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog7" href="#weightLogItem" />
+                </use>
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog8" href="#weightLogItem" />
+                </use>          
+                <use href="#scrollview-item" class="listWeightLog">
+                    <use id="listWeightLog9" href="#weightLogItem" />
+                </use>          
+                </use>
+
+            </svg>
+
+            <!-- header + footer -->
+            <rect id="headRect1" class="headRect" fill="fb-cerulean" />
+            <text id="headText1" class="header" fill="white">Weight log</text>
+            <line id="headLine1" class="headLine" />
+            <rect id="footRect1" class="footRect" fill="black" />
 
             //refresh button
             <use id="btnRefresh" href="#combo-button-lower-right" fill="fb-yellow">

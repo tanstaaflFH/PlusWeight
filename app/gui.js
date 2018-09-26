@@ -40,8 +40,29 @@ btnNewWeight.onactivate = function(e) {
 let txtWeightList = document.getElementById("txtWeightList");
 let btnRefresh = document.getElementById("btnRefresh");
 
+// callback functions
+let callbackNewWeight;
 
 // exported functions
+function initGUI(numberUnsync, lastWeight, lastFat, callback) {
+
+    // set callback function
+    callbackNewWeight = callback;
+
+    // initialise unsynched log disply
+    remainingSync(numberUnsync);
+
+    // initialise tumblers to last weight and fat
+    initLastWeightFat(lastWeight, lastFat);
+
+    // initialise clock to current time
+    setClock();
+
+    // set to welcome screen
+    mainScreenSet(0);
+
+}
+
 function mainScreenSet(screenNumber) {
 
     debug("Main Screen shall be set to " + screenNumber );
@@ -103,7 +124,7 @@ function mainScreenSet(screenNumber) {
             iconLower.image = "icons/btn_combo_x_p.png";
             iconLowerPressed.image = "icons/btn_combo_x_p.png";
             cbtTr.onactivate = function(e) {
-                //addWeightLog();
+                addNewWeight();
                 mainScreenSet(0);
             }
             cbtLr.onactivate = function(e) {
@@ -216,11 +237,19 @@ function hideFatPopUp () {
     containerEntryFat.style.display = "none";
 }
 
+function addNewWeight() {
+
+    let newWeight = weightTumblerGet();
+    let newFat = fatTumblerGet();
+    callbackNewWeight({weight: newWeight, fat: newFat});
+
+}
+
 // exports
 export { 
     remainingSync,
     setClock,
     mainScreenSet,
-    weightTumblerGet,
-    initLastWeightFat
+    initLastWeightFat,
+    initGUI
  };
