@@ -3,30 +3,25 @@ import * as KEYS from "../common/identifier";
 import { debug, error } from "../common/log";
 
 
-function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUnitChanged, callbackPostWeights) {
+function initMessage (callbackWeightsPosted, callbackWeightLogRequested) {
 
     //set event handler on received message
     messaging.peerSocket.onmessage = evt => {
         
-        debug(`App received message: ${JSON.stringify(evt.data.content, undefined, 2)}`);
+        debug(`Companion received message: ${JSON.stringify(evt, undefined, 2)}`);
 
         switch (evt.data.key) {
 
-            case KEYS.MESSAGE_RECEIVED_WEIGHT_LOG_API:
-            // companion has sent Weight log retrieved from web
+            case KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API:
+            // app has sent a request to retrieve the weight log from the web
 
-                callbackWeightsReceived(evt.data.content);
+                callbackWeightLogRequested();
                 break;
 
-            case KEYS.MESSAGE_POST_SUCCESS_API:
-            // companion has sent the result after weights have been posted to the web
+            case KEYS.MESSAGE_POST_WEIGHTS_API:
+            // app has sent some weights to be posted to the web
 
                 callbackWeightsPosted(evt.data.content);
-                break;
-
-            case KEYS.MESSAGE_KEY_SETTINGS_UNIT:
-
-                callbackUnitChanged(evt.data.content);
                 break;
 
         }
@@ -35,7 +30,6 @@ function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUn
     // Message socket opens
     messaging.peerSocket.onopen = () => {
         debug("App Socket Open");
-        callbackPostWeights();
     };
     
     // Message socket closes
@@ -55,12 +49,12 @@ function sendData(data) {
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
       try {
         messaging.peerSocket.send(data);
-        debug(`Sent to companion: ${JSON.stringify(data, undefined, 2)}`);
+        debug(`Sent to app: ${JSON.stringify(data, undefined, 2)}`);
       } catch (err) {
-        error(`Exception when sending to companion`);
+        error(`Exception when sending to app`);
       }
     } else {
-      error("Unable to send data to companion, socket not open.");
+      error("Unable to send data to app");
     } 
 }
 

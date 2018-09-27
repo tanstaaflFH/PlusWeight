@@ -567,7 +567,7 @@
 
                 <rect class="background" />
 
-                <use id="listSleep" href="#scrollview">
+                <use id="listWeight" href="#scrollview">
                 <use href="#scrollview-item" class="listWeightLog">
                     <use id="listWeightLog0" href="#weightLogItem" />
                 </use>

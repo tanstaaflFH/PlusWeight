@@ -25,8 +25,8 @@ class Weight {
     
     initFromWebData(data, unit) {
 
-        let dateString = data.date + "T" + data.time;
-        this.date = new Date(dateString);
+        let dateString = (data.date + "T" + data.time);
+        this.date = dateString;
         this.weight = data.weight;
         this.fat = data.fat;
         this.bmi = data.bmi;

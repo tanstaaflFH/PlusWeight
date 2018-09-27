@@ -56,7 +56,7 @@ function loadFile(fileName) {
       // JSON must be turned to Date for each array entry
       returnObject[index].date = Date(returnObject[index].date);    
     }
-    debug(`Successfully loaded ${fileName} from device: ${returnObject}`);
+    debug(`Successfully loaded ${fileName} from device: ${JSON.stringify(returnObject)}`);
   } catch (ex) {
     debug("Error loading past weights from device: " + ex);
     returnObject = [];
