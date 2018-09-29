@@ -34,12 +34,12 @@ function initMessage (callbackWeightsPosted, callbackWeightLogRequested) {
     
     // Message socket closes
     messaging.peerSocket.onclose = () => {
-    debug("App Socket Closed");
+        debug("App Socket Closed");
     };
 
     // Problem with message socket
     messaging.peerSocket.onerror = err => {
-    error("Connection error: " + err.code + " - " + err.message);
+        error("Connection error: " + err.code + " - " + err.message);
     };
 }
 

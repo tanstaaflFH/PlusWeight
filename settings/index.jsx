@@ -1,12 +1,12 @@
 import { debug } from "../common/log.js";
-
+import { UNITS, Weight } from "../common/weight.js";
 import secrets from "../secrets.json";
 
 const generateSettings = props => (
   <Page>
     <Section title={<Text>Log in with your Fitbit account</Text>}>
       <Oauth
-        settingsKey="oauth"
+        settingsKey="OAUTH"
         title="Login"
         label="Fitbit"
         status={(() => {
@@ -29,11 +29,10 @@ const generateSettings = props => (
     <Section title="Units to use for weight">
        <Select
          label="Unit"
-         settingsKey="unit"
+         settingsKey="UNIT"
          options={[
-          {name: "kg"},
-          {name: "pounds"},
-          {name: "stone"}
+          {name: UNITS.other},
+          {name: UNITS.US}
          ]}
          selectViewTitle="Choose a unit"
         />

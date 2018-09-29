@@ -54,7 +54,7 @@ function loadFile(fileName) {
     returnObject = JSON.parse(fs.readFileSync(fileName, FILE_TYPE));
     for (let index = 0; index < returnObject.length; index++) {
       // JSON must be turned to Date for each array entry
-      returnObject[index].date = Date(returnObject[index].date);    
+      returnObject[index].date = new Date(returnObject[index].date);    
     }
     debug(`Successfully loaded ${fileName} from device: ${JSON.stringify(returnObject)}`);
   } catch (ex) {

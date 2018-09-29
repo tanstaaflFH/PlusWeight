@@ -5,9 +5,6 @@ import * as clsWeight from "../common/weight";
 import * as communication from "./communication";
 import * as KEYS from "../common/identifier";
 
-let now = new Date();
-let testWeight = new clsWeight.Weight(now, 70.1, 20);
-
 //callback functions
 function requestWeightLog() {
 
@@ -47,14 +44,31 @@ communication.initMessage(postNewWeights, requestWeightLog);
 
   // A user changes Settings
 settingsStorage.onchange = evt => {
-  if (evt.key === "oauth") {
-    // Settings page sent us an oAuth token --> refetch the existing weight data
-    let data = JSON.parse(evt.newValue);
-    settingsStorage.setItem(KEYS.SETTINGS_KEY_OAUTH, JSON.stringify(data));
-    //let webWeights = weightAPI.fetchWeightData(data.access_token);
-    /*if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-      messaging.peerSocket.send(webWeights);
-      debug("Sent new web weight data to device.");
-    }*/
+
+  switch ( evt.key ) {
+
+    case KEYS.SETTINGS_KEY_OAUTH:
+      // Settings page sent us an oAuth token --> refetch the existing weight data and store key
+      let data = JSON.parse(evt.newValue);
+      settingsStorage.setItem(KEYS.SETTINGS_KEY_OAUTH, JSON.stringify(data));
+      requestWeightLog();
+      break;
+
+    case KEYS.SETTINGS_KEY_UNIT:
+      // Settings page sent us a new weight unit --> store setting and send new key to app
+      // only used for display --> all data is internally treated and transmitted with kg
+
+      const newValue = JSON.parse(evt.newValue).values[0].name;
+      if (!evt.oldValue) {
+        communication.sendData({key: KEYS.MESSAGE_UNIT_SETTING_CHANGED, content: newValue});
+        return;
+      }
+
+      const oldValue = JSON.parse(evt.oldValue).values[0].name;
+      if (!oldValue || newValue != oldValue) {
+        communication.sendData({key: KEYS.MESSAGE_UNIT_SETTING_CHANGED, content: newValue});
+      }
+
   }
+
 };

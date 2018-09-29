@@ -17,8 +17,10 @@ import * as KEYS from "../common/identifier";
 if (!device.screen) device.screen = { width: 348, height: 250 };
 
 // Initialize data elements
+let messageLog = [];
 let weightsToBeLogged = storage.loadWeightsToBeLogged();
 let weightsPast = storage.loadWeightsPast();
+let weightUnit = clsWeight.UNITS.other;
 resetLastWeight();
 debug("weightsToBeLogged " + JSON.stringify(weightsToBeLogged));
 
@@ -46,7 +48,7 @@ function sendWeightLog() {
         key: KEYS.MESSAGE_POST_WEIGHTS_API,
         content: weightsToBeLogged
       }
-      communication.sendData(requestData);
+      communication.sendData(requestData, KEYS.MESSAGE_POST_WEIGHTS_API, addMessageLog);
     
     }
   }
@@ -59,7 +61,7 @@ function refreshWeightLog () {
     key: KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API,
     content: ""
   }
-  communication.sendData(requestData);
+  communication.sendData(requestData, KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API, addMessageLog);
 
 }
 
@@ -70,10 +72,10 @@ clock.ontick = (evt) => {
 }
 
 // Display initialize
-gui.initGUI(weightsToBeLogged.length, weightsPast, addWeightLog, refreshWeightLog);
+gui.initGUI(weightsToBeLogged.length, weightsPast, addWeightLog, refreshWeightLog, weightUnit);
 
 // Messaging initialize
-communication.initMessage(weightsReceivedFromAPI, weightsPostedToAPI, undefined, sendWeightLog);
+communication.initMessage(weightsReceivedFromAPI, weightsPostedToAPI, weightUnitChanged, retryMessaging);
 
 // check if remaining unsynched weight logs
 sendWeightLog();
@@ -154,5 +156,68 @@ function resetLastWeight() {
     lastFat = 20;
   }
   gui.initLastWeightFat(lastWeight, lastFat);
+
+}
+
+function addMessageLog(identifier) {
+
+  if (!messageLog.includes(identifier)) {
+
+    messageLog.push(identifier);
+
+  }
+
+}
+
+function retryMessaging () {
+
+  let countResolved = 0;
+
+  if (messageLog.length > 0) {
+
+    for (let index = 0; index < messageLog.length; index++) {
+      
+      switch (messageLog[index]) {
+
+        case KEYS.MESSAGE_POST_WEIGHTS_API:
+          sendWeightLog();
+          countResolved++;
+          break;
+
+        case KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API:
+          refreshWeightLog();
+          countResolved++;
+          break;    
+
+      }
+      
+      messageLog[index] = "resolved";
+
+    }
+
+    for (let loop = 0; loop < countResolved; loop++) {
+    
+      for (let index = 0; index < messageLog.length; index++) {
+      
+        if ( messageLog[index] === "resolved" ) {
+          messageLog.splice(index, 1);
+          break;
+        }
+        
+      }
+      
+    }
+
+  }
+
+}
+
+function weightUnitChanged(newUnit) {
+
+  weightUnit = newUnit;
+  debug(`New unit selected: ${newUnit}`);
+
+  // reset display
+  gui.setWeightUnit(weightUnit);
 
 }

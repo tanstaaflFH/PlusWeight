@@ -2,6 +2,7 @@ import document from "document";
 import * as util from "../common/utils";
 import { preferences } from "user-settings";
 import { debug } from "../common/log";
+import { UNITS } from "../common/weight";
 
 // define DOM elements
 // header 
@@ -50,12 +51,20 @@ let btnRefresh = document.getElementById("btnRefresh");
 
 // callback functions
 let callbackNewWeight;
+let callbackRefreshLog;
+
+// module variables
+let weightUnit;
 
 // exported functions
-function initGUI(numberUnsync, weightLog, inpCallBackNewWeight, inpCallBackRefreshLog ) {
+function initGUI(numberUnsync, weightLog, inpCallBackNewWeight, inpCallBackRefreshLog, inpWeightUnit ) {
 
+    // initialize module variables
+    weightUnit = inpWeightUnit;
+    
     // set callback function
     callbackNewWeight = inpCallBackNewWeight;
+    callbackRefreshLog = inpCallBackRefreshLog;
     btnRefresh.onactivate = function(e) {
         debug("clicked refresh button");
         inpCallBackRefreshLog();
@@ -102,7 +111,14 @@ function mainScreenSet(screenNumber) {
             iconLower.image = "icons/btn_combo_next_p.png";
             iconLowerPressed.image = "icons/btn_combo_next_p.png";
             cbtLr.onactivate = function(e) {
-                mainScreenSet(1);
+                switch ( panoramicView.value ) {
+                    case 0:
+                        mainScreenSet(1);
+                            break;
+                    case 1:
+                        callbackRefreshLog();
+                        break;
+                }
             }
 
             // SVG
@@ -124,7 +140,14 @@ function mainScreenSet(screenNumber) {
                 mainScreenSet(2);
             }
             cbtLr.onactivate = function(e) {
-                mainScreenSet(0);
+                switch ( panoramicView.value ) {
+                    case 0:
+                        mainScreenSet(0);
+                            break;
+                    case 1:
+                        callbackRefreshLog();
+                        break;
+                }
             }
 
             // SVG
@@ -147,7 +170,14 @@ function mainScreenSet(screenNumber) {
                 mainScreenSet(0);
             }
             cbtLr.onactivate = function(e) {
-                mainScreenSet(0);
+                switch ( panoramicView.value ) {
+                    case 0:
+                        mainScreenSet(0);
+                            break;
+                    case 1:
+                        callbackRefreshLog();
+                        break;
+                }
             }
     
             hideWeightPopUp();
@@ -193,15 +223,18 @@ function remainingSync(numberRemaining) {
 
 function initLastWeightFat(lastWeight, lastFat) {
 
+    let initWeight = util.convertWeightUnit(lastWeight, UNITS.other, weightUnit);
+
     // weight
-    let hunderts = Math.floor(lastWeight / 100);
-    let tens = Math.floor((lastWeight-hunderts*100) / 10);
-    let singles = Math.floor((lastWeight-hunderts*100-tens*10));
-    let floats = Math.floor((lastWeight-(hunderts*100)-(tens*10)-singles)*10);
+    let hunderts = Math.floor(initWeight / 100);
+    let tens = Math.floor((initWeight-hunderts*100) / 10);
+    let singles = Math.floor((initWeight-hunderts*100-tens*10));
+    let floats = Math.floor((initWeight-(hunderts*100)-(tens*10)-singles)*10);
     weightTumblerC.value = hunderts;
     weightTumblerD.value = tens;
     weightTumblerS.value = singles;
     weightTumblerFloat.value = floats;
+    weightTumblerUnit.text = weightUnit;
 
     // fat
     let intPart = Math.floor(lastFat);
@@ -218,8 +251,10 @@ function weightTumblerGet() {
     let singles = weightTumblerS.value;
     let floats = weightTumblerFloat.value;
 
-    let returnValue = ( hunderts * 100 + tens * 10 + singles + floats / 10 )
-    debug("Weight Tumbler was confirmed with " + returnValue);
+    let weightSet = ( hunderts * 100 + tens * 10 + singles + floats / 10 );
+
+    let returnValue = util.convertWeightUnit(weightSet,weightUnit,UNITS.other);
+    debug(`Weight Tumbler was confirmed with ${weightSet}${weightUnit}/${returnValue}kg`);
 
     return returnValue;
 
@@ -234,6 +269,17 @@ function fatTumblerGet() {
     debug("Fat Tumbler was confirmed with " + returnValue);
 
     return returnValue;
+
+}
+
+function setWeightUnit(inpWeightUnit) {
+
+    let curWeight = weightTumblerGet();
+    let curFat = fatTumblerGet();
+
+    weightUnit = inpWeightUnit;
+
+    initLastWeightFat(curWeight, curFat);
 
 }
 
@@ -273,9 +319,33 @@ function setWeightList(weightLog) {
         
         if (weightLog[index]) {
 
-            weightListDOM[index].txtDate.text = weightLog[index].date || "No date";
-            weightListDOM[index].txtWeight.text = weightLog[index].weight || "No weight";
-            weightListDOM[index].txtFat.text = weightLog[index].fat || "No body fat";
+            let dateString;
+            if (weightLog[index].date) {
+                let year = weightLog[index].date.getFullYear();
+                let month = util.zeroPad(weightLog[index].date.getMonth()+1);
+                let day = util.zeroPad(weightLog[index].date.getDate());
+                dateString = `${year}-${month}-${day}`;
+            } else {
+                dateString = "No date";
+            }
+
+            let weightString;
+            if (weightLog[index].weight) {
+                weightString = `${weightLog[index].weight} kg`;
+            } else {
+                weightString = "No weight";
+            }
+
+            let fatString;
+            if (weightLog[index].fat) {
+                fatString = `${Math.round(weightLog[index].fat*10)/10} %`;
+            } else {
+                fatString = "No body fat";
+            }
+
+            weightListDOM[index].txtDate.text = dateString;
+            weightListDOM[index].txtWeight.text = weightString;
+            weightListDOM[index].txtFat.text = fatString;
 
         } else {
 
@@ -296,5 +366,6 @@ export {
     mainScreenSet,
     initLastWeightFat,
     initGUI,
-    setWeightList
+    setWeightList,
+    setWeightUnit
  };

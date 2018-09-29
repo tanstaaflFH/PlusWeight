@@ -2,8 +2,7 @@ import * as messaging from "messaging";
 import * as KEYS from "../common/identifier";
 import { debug, error } from "../common/log";
 
-
-function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUnitChanged, callbackPostWeights) {
+function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUnitChanged, callbackOpenMessages) {
 
     //set event handler on received message
     messaging.peerSocket.onmessage = evt => {
@@ -24,32 +23,33 @@ function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUn
                 callbackWeightsPosted(evt.data.content);
                 break;
 
-            case KEYS.MESSAGE_KEY_SETTINGS_UNIT:
+            case KEYS.MESSAGE_UNIT_SETTING_CHANGED:
 
                 callbackUnitChanged(evt.data.content);
                 break;
 
         }
+
     };
 
     // Message socket opens
     messaging.peerSocket.onopen = () => {
         debug("App Socket Open");
-        callbackPostWeights();
+        callbackOpenMessages();
     };
     
     // Message socket closes
     messaging.peerSocket.onclose = () => {
-    debug("App Socket Closed");
+        debug("App Socket Closed");
     };
 
     // Problem with message socket
     messaging.peerSocket.onerror = err => {
-    error("Connection error: " + err.code + " - " + err.message);
+        error("Connection error: " + err.code + " - " + err.message);
     };
 }
 
-function sendData(data) {
+function sendData(data, identifier, callback) {
 // Send data to companion using Messaging API
 
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
@@ -61,6 +61,7 @@ function sendData(data) {
       }
     } else {
       error("Unable to send data to companion, socket not open.");
+      callback(identifier);
     } 
 }
 
