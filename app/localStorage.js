@@ -13,7 +13,7 @@ const WEIGHT_WEB_FILE = "weightweb.txt";
 // Load weight log from filesystem
 function loadWeightsToBeLogged() {
 
-  return loadFile(WEIGHT_LOG_FILE);
+  return loadFile(WEIGHT_LOG_FILE, []);
   
 }
 
@@ -26,7 +26,7 @@ function saveWeightsToBeLogged(input) {
 // Load weight past lof from filesystem
 function loadWeightsPast() {
 
-  return loadFile(WEIGHT_WEB_FILE);
+  return loadFile(WEIGHT_WEB_FILE, []);
 
 }
 
@@ -35,6 +35,20 @@ function saveWeightsPast(input) {
     
   saveFile(WEIGHT_WEB_FILE, input);
   
+}
+
+// Load settings from filesystem
+function loadSettings() {
+
+  return loadFile(SETTINGS_FILE, false);
+
+}
+
+// Save settings to filesystem
+function saveSettings(settingsData) {
+
+  saveFile(SETTINGS_FILE, settingsData);
+
 }
 
 function saveFile(fileName, input) {
@@ -46,9 +60,12 @@ function saveFile(fileName, input) {
 
 }
 
-function loadFile(fileName) {
+function loadFile(fileName, inpReturnError) {
+  // fileName
+  // inpReturnError: the value shall be returned if the file could not be loaded
 
   let returnObject;
+  let returnError = inpReturnError || false;
 
   try { 
     returnObject = JSON.parse(fs.readFileSync(fileName, FILE_TYPE));
@@ -59,7 +76,7 @@ function loadFile(fileName) {
     debug(`Successfully loaded ${fileName} from device: ${JSON.stringify(returnObject)}`);
   } catch (ex) {
     debug("Error loading past weights from device: " + ex);
-    returnObject = [];
+    returnObject = returnError;
   }
 
   return returnObject;
@@ -70,5 +87,7 @@ export {
   loadWeightsToBeLogged, 
   saveWeightsToBeLogged,
   loadWeightsPast,
-  saveWeightsPast 
+  saveWeightsPast,
+  loadSettings,
+  saveSettings
 };

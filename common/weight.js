@@ -4,7 +4,7 @@ const LOCALE = {
 }
 
 const UNITS = {
-    US: "lb",
+    US: "lbs",
     other: "kg"
 }
 

@@ -20,7 +20,7 @@ if (!device.screen) device.screen = { width: 348, height: 250 };
 let messageLog = [];
 let weightsToBeLogged = storage.loadWeightsToBeLogged();
 let weightsPast = storage.loadWeightsPast();
-let weightUnit = clsWeight.UNITS.other;
+let appSettings = storage.loadSettings() || {weightUnit: clsWeight.UNITS.other};
 resetLastWeight();
 debug("weightsToBeLogged " + JSON.stringify(weightsToBeLogged));
 
@@ -35,6 +35,9 @@ function addWeightLog (data) {
 
   // show new open unsynched
   gui.remainingSync(weightsToBeLogged.length);
+
+  // try to send to web
+  sendWeightLog();
   
 }
 
@@ -49,6 +52,7 @@ function sendWeightLog() {
         content: weightsToBeLogged
       }
       communication.sendData(requestData, KEYS.MESSAGE_POST_WEIGHTS_API, addMessageLog);
+      debug(`App shall message companion to send a weight log.`);
     
     }
   }
@@ -62,6 +66,7 @@ function refreshWeightLog () {
     content: ""
   }
   communication.sendData(requestData, KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API, addMessageLog);
+  debug(`App shall message companion to request web weight log.`);
 
 }
 
@@ -72,7 +77,7 @@ clock.ontick = (evt) => {
 }
 
 // Display initialize
-gui.initGUI(weightsToBeLogged.length, weightsPast, addWeightLog, refreshWeightLog, weightUnit);
+gui.initGUI(weightsToBeLogged.length, weightsPast, addWeightLog, refreshWeightLog, appSettings.weightUnit);
 
 // Messaging initialize
 communication.initMessage(weightsReceivedFromAPI, weightsPostedToAPI, weightUnitChanged, retryMessaging);
@@ -91,6 +96,12 @@ display.onchange = function() {
 
 /* Functions for data handling */
 function weightsReceivedFromAPI(data) {
+
+  // Check if a defined error was returned from the companion
+  if ( data === KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN ) {
+    debug(`App could not refresh web weights ${data}`);
+    return;
+  }
 
   debug(`Received data from Web: ${JSON.stringify(data)}`);
   // clean up the date objects
@@ -214,10 +225,14 @@ function retryMessaging () {
 
 function weightUnitChanged(newUnit) {
 
-  weightUnit = newUnit;
+  // update module variable
+  appSettings.weightUnit = newUnit;
   debug(`New unit selected: ${newUnit}`);
 
+  // save new setting to device
+  storage.saveSettings(appSettings);
+
   // reset display
-  gui.setWeightUnit(weightUnit);
+  gui.setWeightUnit(appSettings.weightUnit);
 
 }

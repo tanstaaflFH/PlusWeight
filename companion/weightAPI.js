@@ -4,6 +4,8 @@ import * as utils from "../common/utils";
 import { settingsStorage } from "settings";
 import * as KEYS from "../common/identifier";
 import * as secrets from "../secrets.json";
+import { promises } from "fs";
+import { rejects } from "assert";
 
 const URL_BASE = "https://api.fitbit.com/1/user/-/body/log/";
 const URL_WEIGHT_GET = "weight/date/"
@@ -15,6 +17,11 @@ function fetchWeightData()  {
 // Fetch Weight Data from Fitbit Web API (last month data)
     
     return refreshTokens().then(function(res) {
+        
+        // abort if the tokens could not be refreshed
+        if ( res === KEYS.ERROR_API_TOKEN_GENERAL || res === KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN ) {
+            return Promise.reject(res);
+        }
 
         // get the current tokens from the storage
         let TOKEN = JSON.parse(settingsStorage.getItem(KEYS.SETTINGS_KEY_OAUTH));
@@ -55,7 +62,10 @@ function fetchWeightData()  {
         debug("Return Array fetched weight logs: " + JSON.stringify(returnArray));
         return returnArray;
         })
-        .catch(err => debug('[FETCH error GET]: ' + err));
+        .catch(err => {
+            debug('[FETCH error GET]: ' + err);
+            return Promise.reject(KEYS.ERROR_API_FETCH_WEIGHT_LOG);
+        });
     });
 }
 
@@ -64,6 +74,11 @@ function postWeightData(data) {
 
     return refreshTokens().then(function(res) {
 
+        // abort if the tokens could not be refreshed
+        if ( res === KEYS.ERROR_API_TOKEN_GENERAL || res === KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN ) {
+            return Promise.reject(res);
+        }
+        
         // get the current tokens from the storage
         let TOKEN = JSON.parse(settingsStorage.getItem(KEYS.SETTINGS_KEY_OAUTH));
         
@@ -109,7 +124,10 @@ function postWeightData(data) {
             debug("Successfully posted to web: " + JSON.stringify(data));
             return;
         })
-        .catch(err => debug('[FETCH error POST]: ' + err));
+        .catch(err => {
+            debug('[FETCH error POST]: ' + err);
+            return Promise.reject(KEYS.ERROR_API_POST_WEIGHT_LOG);
+        });
     });
 }   
 
@@ -123,7 +141,7 @@ function refreshTokens() {
         debug("Refresh Oauth token");
     } else {
         debug("No authentication stored. Please reconnect to FitBit in the app settings on the phone.");
-        return new Promise (false);
+        return Promise.reject(KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN);
     }
 
     return fetch(`https://api.fitbit.com/oauth2/token?grant_type=refresh_token&refresh_token=${TOKEN.refresh_token}`, {
@@ -153,10 +171,15 @@ function refreshTokens() {
 
         if (response.status === 200) {
             settingsStorage.setItem(KEYS.SETTINGS_KEY_OAUTH, JSON.stringify(response.body));
+            return response;
+        } else {
+            return Promise.reject(KEYS.ERROR_API_TOKEN_GENERAL);
         }
 
-        return response;
-    }).catch(err => debug('[Error in requestTokens]: ' + err));
+    }).catch(err => {
+        debug('[Error in requestTokens]: ' + err);
+        return Promise.reject(KEYS.ERROR_API_TOKEN_GENERAL);
+        });
 }
 
 export { fetchWeightData, postWeightData };

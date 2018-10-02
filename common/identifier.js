@@ -8,6 +8,11 @@ const MESSAGE_POST_WEIGHTS_API = "POST_TO_WEB";
 const MESSAGE_POST_SUCCESS_API = "SUCCESS_POST_TO_WEB";
 const MESSAGE_UNIT_SETTING_CHANGED = SETTINGS_KEY_UNIT;
 
+const ERROR_API_TOKEN_GENERAL = "Could not refresh token";
+const ERROR_API_TOKEN_OLD_REFRESH_TOKEN = "Refresh TOKEN obsolete. Please reconnect to FitBit versus the smartphone app."
+const ERROR_API_FETCH_WEIGHT_LOG = "Could not fetch the weight logs from the FitBit web API."
+const ERROR_API_POST_WEIGHT_LOG = "Could not post the weight log to the FitBit web API."
+
 export {
     MESSAGE_UNIT_SETTING_CHANGED,
     MESSAGE_POST_SUCCESS_API,
@@ -15,5 +20,9 @@ export {
     MESSAGE_RECEIVED_WEIGHT_LOG_API,
     MESSAGE_REQUEST_WEIGHT_LOG_API,
     SETTINGS_KEY_OAUTH,
-    SETTINGS_KEY_UNIT
+    SETTINGS_KEY_UNIT,
+    ERROR_API_TOKEN_GENERAL,
+    ERROR_API_TOKEN_OLD_REFRESH_TOKEN,
+    ERROR_API_FETCH_WEIGHT_LOG,
+    ERROR_API_POST_WEIGHT_LOG
 };

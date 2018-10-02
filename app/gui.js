@@ -1,4 +1,5 @@
 import document from "document";
+import { me as device } from "device";
 import * as util from "../common/utils";
 import { preferences } from "user-settings";
 import { debug } from "../common/log";
@@ -45,8 +46,10 @@ for (let i=0; i<weightListDOM.length; i++) {
     weightListDOM[i] = {
         txtDate: symbol.getElementById("txtDate"),
         txtWeight: symbol.getElementById("txtWeight"),
-        txtFat: symbol.getElementById("txtFat")};
+        txtFat: symbol.getElementById("txtFat"),
+        txtBMI: symbol.getElementById("txtBMI")};
 }
+
 let btnRefresh = document.getElementById("btnRefresh");
 
 // callback functions
@@ -55,13 +58,16 @@ let callbackRefreshLog;
 
 // module variables
 let weightUnit;
+let weightList;
+let deviceWidth = device.screen.width;
+debug(`Sreen width: ${deviceWidth}`);
 
 // exported functions
 function initGUI(numberUnsync, weightLog, inpCallBackNewWeight, inpCallBackRefreshLog, inpWeightUnit ) {
 
     // initialize module variables
     weightUnit = inpWeightUnit;
-    
+   
     // set callback function
     callbackNewWeight = inpCallBackNewWeight;
     callbackRefreshLog = inpCallBackRefreshLog;
@@ -280,6 +286,7 @@ function setWeightUnit(inpWeightUnit) {
     weightUnit = inpWeightUnit;
 
     initLastWeightFat(curWeight, curFat);
+    setWeightList();
 
 }
 
@@ -310,48 +317,74 @@ function addNewWeight() {
 
 function setWeightList(weightLog) {
 
+    if (weightLog) {
+        weightList = weightLog;
+    }
+
     debug("Resetting weight list");
-    if (!weightLog) {
-        weightLog = new Array(10);
+    if (!weightList) {
+        weightList = new Array(10);
     }
 
     for (let index = 0; index < weightListDOM.length; index++) {
         
-        if (weightLog[index]) {
+        if (weightList[index]) {
 
             let dateString;
-            if (weightLog[index].date) {
-                let year = weightLog[index].date.getFullYear();
-                let month = util.zeroPad(weightLog[index].date.getMonth()+1);
-                let day = util.zeroPad(weightLog[index].date.getDate());
+            if (weightList[index].date) {
+                let year = weightList[index].date.getFullYear();
+                let month = util.zeroPad(weightList[index].date.getMonth()+1);
+                let day = util.zeroPad(weightList[index].date.getDate());
                 dateString = `${year}-${month}-${day}`;
             } else {
                 dateString = "No date";
             }
 
             let weightString;
-            if (weightLog[index].weight) {
-                weightString = `${weightLog[index].weight} kg`;
+            if (weightList[index].weight) {
+                let convertedWeightUnit = (weightList[index].weight).toFixed(1);
+                if (!(weightUnit === UNITS.other)) {
+                    convertedWeightUnit = (util.convertWeightUnit(weightList[index].weight, UNITS.other, weightUnit)).toFixed(1);
+                }
+                weightString = `${convertedWeightUnit} ${weightUnit}`;
             } else {
                 weightString = "No weight";
             }
 
             let fatString;
-            if (weightLog[index].fat) {
-                fatString = `${Math.round(weightLog[index].fat*10)/10} %`;
+            if (weightList[index].fat) {
+                fatString = `${(Math.round(weightList[index].fat*10)/10).toFixed(1)} %`;
             } else {
                 fatString = "No body fat";
+            }
+
+            let BMIstring;
+            if (weightList[index].bmi) {
+                BMIstring = `${(Math.round(weightList[index].bmi*10)/10).toFixed(1)} BMI`;
+            } else {
+                BMIstring = "No BMI";
             }
 
             weightListDOM[index].txtDate.text = dateString;
             weightListDOM[index].txtWeight.text = weightString;
             weightListDOM[index].txtFat.text = fatString;
+            weightListDOM[index].txtBMI.text = BMIstring;
+
+            // update x position of fat and BMI depending on unit
+            if (weightUnit === UNITS.other) {
+                weightListDOM[index].txtFat.x = deviceWidth * 0.4;
+                weightListDOM[index].txtBMI.x = deviceWidth * 0.65;
+            } else {
+                weightListDOM[index].txtFat.x = deviceWidth * 0.45;
+                weightListDOM[index].txtBMI.x = deviceWidth * 0.7;
+            }
 
         } else {
 
             weightListDOM[index].txtDate.text = "No Entry";
             weightListDOM[index].txtWeight.text = "";
-            weightListDOM[index].txtFat.text = "";           
+            weightListDOM[index].txtFat.text = "";          
+            weightListDOM[index].txtBMI.text = ""; 
 
         }
         
