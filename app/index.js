@@ -1,20 +1,12 @@
 //imports
-import document from "document";
-import * as fs from "fs";
-import * as messaging from "messaging";
-import * as util from "../common/utils";
 import * as clsWeight from "../common/weight";
 import * as storage from "./localStorage";
-import { me as device } from "device";
 import clock from "clock";
 import { display } from "display";
-import { preferences } from "user-settings";
 import * as gui from "./gui";
 import { debug } from "../common/log";
 import * as communication from "./communication";
 import * as KEYS from "../common/identifier";
-
-if (!device.screen) device.screen = { width: 348, height: 250 };
 
 // Initialize data elements
 let messageLog = [];
@@ -47,9 +39,16 @@ function sendWeightLog() {
   if (weightsToBeLogged) {
     if (weightsToBeLogged.length>0) {
       
+      let tempPost = weightsToBeLogged;
+
+      for (let index = 0; index < tempPost.length; index++) {
+        tempPost[index] = JSON.stringify(tempPost[index]);
+        
+      }
+
       let requestData = {
         key: KEYS.MESSAGE_POST_WEIGHTS_API,
-        content: weightsToBeLogged
+        content: tempPost
       }
       communication.sendData(requestData, KEYS.MESSAGE_POST_WEIGHTS_API, addMessageLog);
       debug(`App shall message companion to send a weight log.`);
@@ -119,38 +118,27 @@ function weightsReceivedFromAPI(data) {
 }
 
 function weightsPostedToAPI(data) {
-
-  let countResolved = 0;
+/*  Callback if some of the weights have been posted to the web successfully.
+The return array shows all UUID that have been posted. It loops through the array of 
+weightsToBeLogged and removes the already posted entries */
 
   debug(`Successfully posted data to Web: ${JSON.stringify(data)}`);
 
-  for (let index = 0; index < weightsToBeLogged.length; index++) {
-    for (let indexData = 0; indexData < data.length; indexData++) {
-      
-      if ( index == data[indexData] ) {
-        weightsToBeLogged[index] = "resolved";
-        countResolved++;
-      }
-      
-    }
-    
-  }
-
-  for (let loop = 0; loop < countResolved; loop++) {
-    
+  for (let index = 0; index < data.length; index++) {
+    // loop through all returned entries  
     for (let index = 0; index < weightsToBeLogged.length; index++) {
-    
-      if ( weightsToBeLogged[index] === "resolved" ) {
-        weightsToBeLogged.splice(index, 1);
+      // loop through all remaining log entries
+      if (weightsToBeLogged[index].logID = data[index] ) {
+        weightsToBeLogged.splice(index, 1); // delete from array if UUID matches
         break;
       }
-      
-    }
-    
+    }    
   }
 
+  // save remaining entries to be logged
   storage.saveWeightsToBeLogged(weightsToBeLogged);
 
+  // update GUI with remaining numbers
   gui.remainingSync(weightsToBeLogged.length);
 
 }

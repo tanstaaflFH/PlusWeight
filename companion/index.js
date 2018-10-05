@@ -9,11 +9,15 @@ import * as KEYS from "../common/identifier";
 function requestWeightLog() {
 
   weightAPI.fetchWeightData().then(
-    function(result) {
-      debug("receivedWeightLog: " + JSON.stringify(result));
-      communication.sendData({key: KEYS.MESSAGE_RECEIVED_WEIGHT_LOG_API, content: result});
+    result => {
+      debug("receivedWeightLog: " + JSON.stringify(result.data));
+      communication.sendData({key: KEYS.MESSAGE_RETRIEVE_SUCCES_API, content: result.data});
     }
-  ).catch(err => debug('[Error in requestWeightLog]: ' + err));
+  ).catch(err => {
+      debug('[Error in requestWeightLog]: ' + JSON.stringify(err,undefined,2));
+      communication.sendData({key: KEYS.MESSAGE_RETRIEVE_FAILURE_API, content: `${err.data}`});
+    }
+  );
 
 }
 
@@ -22,28 +26,36 @@ async function postNewWeights(newWeightsData) {
   // clean up the date objects
   for (let index = 0; index < newWeightsData.length; index++) {
     if (newWeightsData[index]) {
+      newWeightsData[index] = JSON.parse(newWeightsData[index]);
       newWeightsData[index].date = new Date(newWeightsData[index].date);
     }
   }
   
+  // do one POST for each entry of the array with logs to be posted
   let resolved = [];
   for (let index = 0; index < newWeightsData.length; index++) {
     await weightAPI.postWeightData(newWeightsData[index]).then(
-      function(result) {
+      result => {
         debug("successfully posted new weight: " + JSON.stringify(result));
-        resolved.push(index);
+        resolved.push(newWeightsData[index].logID);
       }
-    ).catch(err => debug('[Error in postNewWeights]: ' + err));
+    ).catch(
+      err => debug('[Error in postNewWeights]: ' + JSON.stringify(err,undefined,2))
+    );
   }
 
   debug(`Posted the following array entries ${resolved}`);
-  communication.sendData({key: KEYS.MESSAGE_POST_SUCCESS_API, content:resolved});
+  if (resolved.length > 0) {
+    communication.sendData({key: KEYS.MESSAGE_POST_SUCCESS_API, content:resolved});
+  } else {
+    communication.sendData({key: KEYS.MESSAGE_POST_FAILURE_API, content:KEYS.ERROR_API_POST_WEIGHT_LOG});
+  }
 }
 
 communication.initMessage(postNewWeights, requestWeightLog);
 
-  // A user changes Settings
 settingsStorage.onchange = evt => {
+// A user changes Settings
 
   switch ( evt.key ) {
 

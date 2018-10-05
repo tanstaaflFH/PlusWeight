@@ -65,6 +65,9 @@ debug(`Sreen width: ${deviceWidth}`);
 // exported functions
 function initGUI(numberUnsync, weightLog, inpCallBackNewWeight, inpCallBackRefreshLog, inpWeightUnit ) {
 
+    let testSpinner = document.getElementById("spinner");
+    testSpinner.state = "enabled";
+
     // initialize module variables
     weightUnit = inpWeightUnit;
    

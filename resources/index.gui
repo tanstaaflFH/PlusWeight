@@ -627,4 +627,7 @@
 
     </use>
 
+    <!-- Spinner to show async request in progress -->
+    <use id="spinner" href="#spinner" />
+
 </svg>

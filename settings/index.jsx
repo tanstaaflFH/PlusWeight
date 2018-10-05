@@ -1,6 +1,6 @@
 import { debug } from "../common/log.js";
 import { UNITS, Weight } from "../common/weight.js";
-import secrets from "../secrets.json";
+import secrets from "../secrets";
 
 const generateSettings = props => (
   <Page>

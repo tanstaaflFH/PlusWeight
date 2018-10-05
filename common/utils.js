@@ -59,9 +59,24 @@ function convertWeightUnit(value, unitFrom, unitTo) {
 
 }
 
+function UUID() {
+// creates a unique identifier
+
+  var dt = new Date().getTime();
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (dt + Math.random()*16)%16 | 0;
+      dt = Math.floor(dt/16);
+      return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+  });
+
+  return uuid;
+  
+}
+
 export {
   zeroPad,
   numberGroupThousand,
   numberWithSeparator,
-  convertWeightUnit
+  convertWeightUnit,
+  UUID
 }

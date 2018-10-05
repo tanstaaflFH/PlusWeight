@@ -1,3 +1,5 @@
+import { UUID } from "../common/utils";
+
 const LOCALE = {
     US: "en_US",
     other: ""
@@ -17,7 +19,7 @@ class Weight {
         this.fat = fat;
         this.unit = unit || UNITS.other;
         this.bmi = undefined;
-        this.logID = undefined;
+        this.logID = UUID();
         
     }
     

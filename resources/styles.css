@@ -161,19 +161,26 @@
 }
 
 .footRect {
-x: 0;
-y: 92%;
-width : 100%;
-height: 8%;
-fill: black;
+	x: 0;
+	y: 92%;
+	width : 100%;
+	height: 8%;
+	fill: black;
 }
 
 .headLine {
-x1: 0;
-x2: 100%;
-y1: 12%;
-y2: 12%;
-stroke-width: 2;
-fill: fb-light-gray;
+	x1: 0;
+	x2: 100%;
+	y1: 12%;
+	y2: 12%;
+	stroke-width: 2;
+	fill: fb-light-gray;
 }
 
+#spinner {
+	x: 10%;
+	y: 10%;
+	width: 24;
+	height: 24;
+	fill: fb-light-gray;
+}

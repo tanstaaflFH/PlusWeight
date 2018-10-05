@@ -3,9 +3,7 @@ import * as clsWeight from "../common/weight";
 import * as utils from "../common/utils";
 import { settingsStorage } from "settings";
 import * as KEYS from "../common/identifier";
-import * as secrets from "../secrets.json";
-import { promises } from "fs";
-import { rejects } from "assert";
+import secrets from "../secrets";
 
 const URL_BASE = "https://api.fitbit.com/1/user/-/body/log/";
 const URL_WEIGHT_GET = "weight/date/"
@@ -16,11 +14,18 @@ const PERIOD = "/30d";
 function fetchWeightData()  {
 // Fetch Weight Data from Fitbit Web API (last month data)
     
+    let returnObject = {
+        status: KEYS.REJECT,
+        data: undefined
+    };
+
     return refreshTokens().then(function(res) {
         
         // abort if the tokens could not be refreshed
-        if ( res === KEYS.ERROR_API_TOKEN_GENERAL || res === KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN ) {
-            return Promise.reject(res);
+        if ( res.status === KEYS.REJECT ) {
+
+            returnObject.data = `${KEYS.ERROR_API_FETCH_WEIGHT_LOG} / ${res.data}`;
+            return Promise.reject(returnObject);
         }
 
         // get the current tokens from the storage
@@ -46,37 +51,49 @@ function fetchWeightData()  {
             return res.json();
         })
         .then(function(data) {
-        // return is an array with weight entries
-        // take the last ten entries and transform in Weight class objects
-        let fetchArray = data.weight;
-        let length = fetchArray.length;
-        for (let index = 0; index < 10; index++) {
-            let loopWeight = new clsWeight.Weight();
-            if (index < fetchArray.length) {
-                loopWeight.initFromWebData(fetchArray[length-index-1]);
-                returnArray[index] = loopWeight;
-            } else {
-                returnArray[index] = false;
+            // return is an array with weight entries
+            // take the last ten entries and transform in Weight class objects
+            let fetchArray = data.weight;
+            let length = fetchArray.length;
+            for (let index = 0; index < 10; index++) {
+                let loopWeight = new clsWeight.Weight();
+                if (index < fetchArray.length) {
+                    loopWeight.initFromWebData(fetchArray[length-index-1]);
+                    returnArray[index] = loopWeight;
+                } else {
+                    returnArray[index] = false;
+                }
             }
-        }
-        debug("Return Array fetched weight logs: " + JSON.stringify(returnArray));
-        return returnArray;
+            debug("Return Array fetched weight logs: " + JSON.stringify(returnArray));
+            returnObject.status = KEYS.RESOLVE;
+            returnObject.data = returnArray;
+            return Promise.resolve(returnObject);
         })
         .catch(err => {
-            debug('[FETCH error GET]: ' + err);
-            return Promise.reject(KEYS.ERROR_API_FETCH_WEIGHT_LOG);
+            debug('[FETCH error GET]: ' + JSON.stringify(err,undefined,2));
+            returnObject.data = `${err}`;
+            return Promise.reject(returnObject);
         });
+    }).catch(err => {
+        debug('[Error in fetchWeightData]: ' + JSON.stringify(err,undefined,2));
+        returnObject.data = `${KEYS.ERROR_API_FETCH_WEIGHT_LOG} / ${err.data}`;
+        return Promise.reject(returnObject);
     });
 }
 
 function postWeightData(data) {
 // Post a new Weight Data to the Fitbit Web API)
 
+    let returnObject = {
+        status: KEYS.REJECT,
+        data: undefined
+    };
     return refreshTokens().then(function(res) {
 
         // abort if the tokens could not be refreshed
-        if ( res === KEYS.ERROR_API_TOKEN_GENERAL || res === KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN ) {
-            return Promise.reject(res);
+        if ( res.status === KEYS.REJECT ) {
+            returnObject.data = `${KEYS.ERROR_API_POST_WEIGHT_LOG} / ${res.data}`;
+            return Promise.reject(returnObject);
         }
         
         // get the current tokens from the storage
@@ -122,16 +139,28 @@ function postWeightData(data) {
         })
         .then(function(data) {
             debug("Successfully posted to web: " + JSON.stringify(data));
-            return;
+            returnObject.status = KEYS.RESOLVE;
+            returnObject.data = KEYS.MESSAGE_POST_SUCCESS_API;
+            return Promise.resolve(returnObject);
         })
         .catch(err => {
-            debug('[FETCH error POST]: ' + err);
-            return Promise.reject(KEYS.ERROR_API_POST_WEIGHT_LOG);
+            debug('[FETCH error POST]: ' + JSON.stringify(err,undefined,2));
+            returnObject.data = `${KEYS.ERROR_API_POST_WEIGHT_LOG} / ${err}`;
+            return Promise.reject(returnObject);
         });
+    }).catch(err => {
+        debug('[Error in postWeightData]: ' + JSON.stringify(err,undefined,2));
+        returnObject.data = `${KEYS.ERROR_API_POST_WEIGHT_LOG} / ${err.data}`;
+        return Promise.reject(returnObject);
     });
 }   
 
 function refreshTokens() {
+
+    let returnObject = {
+        status: KEYS.REJECT,
+        data: undefined
+    };
 
     // get the current tokens from the storage
     let storedTOKEN = settingsStorage.getItem(KEYS.SETTINGS_KEY_OAUTH);
@@ -141,7 +170,8 @@ function refreshTokens() {
         debug("Refresh Oauth token");
     } else {
         debug("No authentication stored. Please reconnect to FitBit in the app settings on the phone.");
-        return Promise.reject(KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN);
+        returnObject.data = KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN;
+        return Promise.reject(returnObject);
     }
 
     return fetch(`https://api.fitbit.com/oauth2/token?grant_type=refresh_token&refresh_token=${TOKEN.refresh_token}`, {
@@ -171,15 +201,19 @@ function refreshTokens() {
 
         if (response.status === 200) {
             settingsStorage.setItem(KEYS.SETTINGS_KEY_OAUTH, JSON.stringify(response.body));
-            return response;
+            returnObject.status = KEYS.RESOLVE;
+            returnObject.data = response;
+            return Promise.resolve(returnObject);
         } else {
-            return Promise.reject(KEYS.ERROR_API_TOKEN_GENERAL);
+            returnObject.data = KEYS.ERROR_API_TOKEN_GENERAL;
+            return Promise.reject(returnObject);
         }
 
     }).catch(err => {
-        debug('[Error in requestTokens]: ' + err);
-        return Promise.reject(KEYS.ERROR_API_TOKEN_GENERAL);
-        });
+        debug('[Error in requestTokens]: ' + JSON.stringify(err,undefined,2));
+        returnObject.data = err.data;
+        return Promise.reject(returnObject);
+    });
 }
 
 export { fetchWeightData, postWeightData };

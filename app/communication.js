@@ -11,16 +11,26 @@ function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUn
 
         switch (evt.data.key) {
 
-            case KEYS.MESSAGE_RECEIVED_WEIGHT_LOG_API:
+            case KEYS.MESSAGE_RETRIEVE_SUCCES_API:
             // companion has sent Weight log retrieved from web
 
                 callbackWeightsReceived(evt.data.content);
+                break;
+
+            case KEYS.MESSAGE_RETRIEVE_FAILURE_API:
+
+                debug(`Companion could not retrieve the weight log from the web. ${evt.data.content}`);
                 break;
 
             case KEYS.MESSAGE_POST_SUCCESS_API:
             // companion has sent the result after weights have been posted to the web
 
                 callbackWeightsPosted(evt.data.content);
+                break;
+
+            case KEYS.MESSAGE_POST_FAILURE_API:
+
+                debug(`Companion could not post any weight data.`);
                 break;
 
             case KEYS.MESSAGE_UNIT_SETTING_CHANGED:
