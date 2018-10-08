@@ -627,7 +627,19 @@
 
     </use>
 
+    <!-- error message pop-up -->
+    <svg id="alertPopUp" display="none">
+        <rect id="alertBG" width="100%" height="100%" fill="black" opacity="0.95" />
+        <textarea id="alertText">Placeholder error message.</textarea>
+        <rect id="alertClickTarget" width="100%" height="100%" opacity="0" pointer-events="visible" />
+    </svg>
+
     <!-- Spinner to show async request in progress -->
-    <use id="spinner" href="#spinner" />
+    <svg id="containerSpinner" display="none">
+
+        <circle id="circleSpinner" />
+        <use id="spinner" href="#spinner" />
+
+    </svg>
 
 </svg>

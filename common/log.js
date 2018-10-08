@@ -7,7 +7,7 @@ const debug = text => {
 };
 
 const error = text => {
-  console.error(text);
+  console.log(`ERROR: ${text}`);
 };
 
 export { debug, error };

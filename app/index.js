@@ -7,11 +7,13 @@ import * as gui from "./gui";
 import { debug } from "../common/log";
 import * as communication from "./communication";
 import * as KEYS from "../common/identifier";
+import * as utils from "../common/utils";
 
 // Initialize data elements
-let messageLog = [];
-let weightsToBeLogged = storage.loadWeightsToBeLogged();
-let weightsPast = storage.loadWeightsPast();
+let messageLog = []; // array that holds identifiers for unsuccessful messages ( to be repeated )
+let weightsToBeLogged = storage.loadWeightsToBeLogged(); // weight entries that need still to be posted
+let weightsPast = storage.loadWeightsPast(); // past weight entries fetched from web
+let asyncOngoing = []; // UUID for all ongoing asynchronous requests
 let appSettings = storage.loadSettings() || {weightUnit: clsWeight.UNITS.other};
 resetLastWeight();
 debug("weightsToBeLogged " + JSON.stringify(weightsToBeLogged));
@@ -33,6 +35,20 @@ function addWeightLog (data) {
   
 }
 
+function addMessageLog(identifier, data) {
+
+  if (!messageLog.includes(identifier)) {
+
+    messageLog.push(identifier);
+
+  }
+
+  if (data.uuid) {
+    updateSpinner(undefined, data.uuid);
+  }
+
+}
+
 function sendWeightLog() {
 
   // send message to companion to upload
@@ -46,10 +62,13 @@ function sendWeightLog() {
         
       }
 
+      let requestUUID = utils.UUID();
       let requestData = {
         key: KEYS.MESSAGE_POST_WEIGHTS_API,
-        content: tempPost
+        content: tempPost,
+        uuid: requestUUID
       }
+      updateSpinner(requestUUID,undefined);
       communication.sendData(requestData, KEYS.MESSAGE_POST_WEIGHTS_API, addMessageLog);
       debug(`App shall message companion to send a weight log.`);
     
@@ -59,11 +78,14 @@ function sendWeightLog() {
 }
 
 function refreshWeightLog () {
-
+  
+  let requestUUID = utils.UUID();
   let requestData = {
     key: KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API,
-    content: ""
+    content: "",
+    uuid: requestUUID
   }
+  updateSpinner(requestUUID,undefined);
   communication.sendData(requestData, KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API, addMessageLog);
   debug(`App shall message companion to request web weight log.`);
 
@@ -79,7 +101,7 @@ clock.ontick = (evt) => {
 gui.initGUI(weightsToBeLogged.length, weightsPast, addWeightLog, refreshWeightLog, appSettings.weightUnit);
 
 // Messaging initialize
-communication.initMessage(weightsReceivedFromAPI, weightsPostedToAPI, weightUnitChanged, retryMessaging);
+communication.initMessage(weightsReceivedFromAPI, weightsPostedToAPI, weightUnitChanged, retryMessaging, requestFailure);
 
 // check if remaining unsynched weight logs
 sendWeightLog();
@@ -94,7 +116,7 @@ display.onchange = function() {
 };
 
 /* Functions for data handling */
-function weightsReceivedFromAPI(data) {
+function weightsReceivedFromAPI(data, uuid) {
 
   // Check if a defined error was returned from the companion
   if ( data === KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN ) {
@@ -114,10 +136,11 @@ function weightsReceivedFromAPI(data) {
   storage.saveWeightsPast(weightsPast);
   resetLastWeight();
   gui.setWeightList(weightsPast);
+  updateSpinner(undefined,uuid);
 
 }
 
-function weightsPostedToAPI(data) {
+function weightsPostedToAPI(data, uuid) {
 /*  Callback if some of the weights have been posted to the web successfully.
 The return array shows all UUID that have been posted. It loops through the array of 
 weightsToBeLogged and removes the already posted entries */
@@ -140,6 +163,20 @@ weightsToBeLogged and removes the already posted entries */
 
   // update GUI with remaining numbers
   gui.remainingSync(weightsToBeLogged.length);
+  updateSpinner(undefined,uuid);
+
+}
+
+function requestFailure(error, uuid) {
+
+  updateSpinner(undefined,uuid);
+  let errorMessage;
+  if ((error.indexOf(KEYS.ERROR_API_TOKEN_GENERAL) !== -1) || (error.indexOf(KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN) !== -1)) {
+    errorMessage = `ERROR:\n\n${error}\n\nPlease try to reconnect to your FitBit account in the app settings on your smartphone.`;
+  } else {
+    errorMessage = `ERROR:\n\n${error}`;
+  }
+  gui.alert(errorMessage);
 
 }
 
@@ -154,17 +191,8 @@ function resetLastWeight() {
     lastWeight = 75;
     lastFat = 20;
   }
+  debug(`Setting last weight and fat tumblers: ${JSON.stringify(weightsPast[0])} / ${lastWeight} / ${lastFat}`);
   gui.initLastWeightFat(lastWeight, lastFat);
-
-}
-
-function addMessageLog(identifier) {
-
-  if (!messageLog.includes(identifier)) {
-
-    messageLog.push(identifier);
-
-  }
 
 }
 
@@ -223,4 +251,45 @@ function weightUnitChanged(newUnit) {
   // reset display
   gui.setWeightUnit(appSettings.weightUnit);
 
+}
+
+function updateSpinner(addUUID, removeUUID) {
+
+  // new spinner to be added
+  if (addUUID) {
+    asyncOngoing.push(addUUID);
+    spinnerTimeOut(addUUID);
+    debug(`Adding to spinner Array: ${asyncOngoing}`);
+  }
+
+  // spinner to be removed
+  if (removeUUID) {
+    debug(`Removing ${removeUUID} from spinner array ${asyncOngoing}`);
+    for (let index = 0; index < asyncOngoing.length; index++) {
+      if (asyncOngoing[index] === removeUUID) {
+        asyncOngoing.splice(index,1);
+        break;
+      }
+    }
+  }
+
+  // check if spinner to be started or ended
+  if (asyncOngoing.length > 0 ) {
+    debug(`Spinner array length ${asyncOngoing.length} - starting spinner`);
+    gui.setSpinner(true);
+  } else {
+    debug(`Spinner array length ${asyncOngoing.length} - stopping spinner`);
+    gui.setSpinner(false);
+  }
+
+}
+
+async function spinnerTimeOut(uuid, time) {
+// waits for a set amount of time and then stops the spinner regardless of result
+
+  let waitTime = time || (30 * 1000);
+  await utils.sleep(waitTime);
+
+  updateSpinner(undefined,uuid);
+  
 }

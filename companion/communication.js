@@ -15,13 +15,13 @@ function initMessage (callbackWeightsPosted, callbackWeightLogRequested) {
             case KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API:
             // app has sent a request to retrieve the weight log from the web
 
-                callbackWeightLogRequested();
+                callbackWeightLogRequested(evt.data.uuid);
                 break;
 
             case KEYS.MESSAGE_POST_WEIGHTS_API:
             // app has sent some weights to be posted to the web
 
-                callbackWeightsPosted(evt.data.content);
+                callbackWeightsPosted(evt.data.content, evt.data.uuid);
                 break;
 
         }

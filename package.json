@@ -2,7 +2,7 @@
   "fitbit": {
     "appUUID": "a845c4b2-e667-4b8e-ab7a-82375eafd0b3",
     "appType": "app",
-    "appDisplayName": "Weight+1",
+    "appDisplayName": "WeightAdd",
     "iconFile": "resources/icon.png",
     "wipeColor": "#607d8b",
     "requestedPermissions": [
@@ -14,7 +14,7 @@
     ],
     "i18n": {
       "en": {
-        "name": "Weight+1"
+        "name": "WeightAdd"
       }
     }
   },
@@ -22,7 +22,7 @@
     "fitbit": "0.0.7"
   },
   "devDependencies": {
-    "@fitbit/sdk": "^2.0.0",
+    "@fitbit/sdk": "^1.0.0",
     "@fitbit/sdk-cli": "^1.0.2"
   },
   "scripts": {

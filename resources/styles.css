@@ -178,9 +178,34 @@
 }
 
 #spinner {
-	x: 10%;
-	y: 10%;
+	x: 10%-12;
+	y: 8%-12;
 	width: 24;
 	height: 24;
 	fill: fb-light-gray;
+}
+
+#circleSpinner {
+
+	cx: 10%;
+	cy: 8%;
+	r: 16;
+	fill: black;
+	opacity: 0.8;
+
+}
+
+/* error pop up*/
+#alertText {
+	font-family: "Colfax-Light";
+	font-size: 20;
+	font-weight: bold;
+	fill: fb-red;
+	x: 5%;
+	y: 5%;
+	width: 90%;
+	height: 90%;
+	text-anchor: middle;
+	display-align: center;
+	text-length: 256;	
 }

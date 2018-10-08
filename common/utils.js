@@ -7,6 +7,7 @@
 
 import { UNITS } from "./weight";
 import { debug } from "util";
+import { sep } from "path";
 
 function zeroPad(i) {
 // Add zero in front of numbers < 10
@@ -14,6 +15,17 @@ function zeroPad(i) {
     i = "0" + i;
   }
   return i;
+}
+
+function fixedDecimals(number, digits, separator) {
+
+  let intPart = Math.floor(number);
+  let floatPart = Math.round((number-intPart)*(10*digits));
+  if (!separator) {
+    separator = ".";
+  }
+  return `${intPart}${separator}${floatPart}`;
+
 }
 
 function numberGroupThousand( inputNumber ) {
@@ -73,10 +85,16 @@ function UUID() {
   
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export {
   zeroPad,
   numberGroupThousand,
   numberWithSeparator,
   convertWeightUnit,
-  UUID
+  UUID,
+  sleep,
+  fixedDecimals
 }

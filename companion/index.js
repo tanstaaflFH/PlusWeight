@@ -6,22 +6,22 @@ import * as communication from "./communication";
 import * as KEYS from "../common/identifier";
 
 //callback functions
-function requestWeightLog() {
+function requestWeightLog(uuid) {
 
   weightAPI.fetchWeightData().then(
     result => {
       debug("receivedWeightLog: " + JSON.stringify(result.data));
-      communication.sendData({key: KEYS.MESSAGE_RETRIEVE_SUCCES_API, content: result.data});
+      communication.sendData({key: KEYS.MESSAGE_RETRIEVE_SUCCES_API, content: result.data, uuid: uuid});
     }
   ).catch(err => {
       debug('[Error in requestWeightLog]: ' + JSON.stringify(err,undefined,2));
-      communication.sendData({key: KEYS.MESSAGE_RETRIEVE_FAILURE_API, content: `${err.data}`});
+      communication.sendData({key: KEYS.MESSAGE_RETRIEVE_FAILURE_API, content: `${err.data}`, uuid: uuid});
     }
   );
 
 }
 
-async function postNewWeights(newWeightsData) {
+async function postNewWeights(newWeightsData, uuid) {
 
   // clean up the date objects
   for (let index = 0; index < newWeightsData.length; index++) {
@@ -46,9 +46,9 @@ async function postNewWeights(newWeightsData) {
 
   debug(`Posted the following array entries ${resolved}`);
   if (resolved.length > 0) {
-    communication.sendData({key: KEYS.MESSAGE_POST_SUCCESS_API, content:resolved});
+    communication.sendData({key: KEYS.MESSAGE_POST_SUCCESS_API, content:resolved, uuid: uuid});
   } else {
-    communication.sendData({key: KEYS.MESSAGE_POST_FAILURE_API, content:KEYS.ERROR_API_POST_WEIGHT_LOG});
+    communication.sendData({key: KEYS.MESSAGE_POST_FAILURE_API, content:KEYS.ERROR_API_POST_WEIGHT_LOG, uuid: uuid});
   }
 }
 

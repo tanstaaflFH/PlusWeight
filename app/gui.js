@@ -24,13 +24,23 @@ let weightTumblerC = document.getElementById("weightTumblerC");
 let weightTumblerD = document.getElementById("weightTumblerD");
 let weightTumblerS = document.getElementById("weightTumblerS");
 let weightTumblerFloat = document.getElementById("weightTumblerFloat");
-let weightTumblerSeparator = document.getElementById("weightTumblerSeparator");
 let weightTumblerUnit = document.getElementById("weightTumblerUnit");
 //pop up fat
 let containerEntryFat = document.getElementById("containerEntryFat");
 let fatTumblerInt = document.getElementById("fatTumblerInt");
 let fatTumblerFloat = document.getElementById("fatTumblerFloat");
-let fatTumblerSeparator = document.getElementById("fatTumblerSeparator");
+
+// spinner
+let spinnerContainer = document.getElementById("containerSpinner");
+let spinner = document.getElementById("spinner");
+
+// error pop-up
+let alertPopUp = document.getElementById("alertPopUp");
+let alertText = document.getElementById("alertText");
+let alertClickTarget = document.getElementById("alertClickTarget");
+alertClickTarget.onclick = () => { 
+    alert(); 
+};
 
 // *** main screen ***
 let btnNewWeight = document.getElementById("btnNewWeight");
@@ -65,9 +75,6 @@ debug(`Sreen width: ${deviceWidth}`);
 // exported functions
 function initGUI(numberUnsync, weightLog, inpCallBackNewWeight, inpCallBackRefreshLog, inpWeightUnit ) {
 
-    let testSpinner = document.getElementById("spinner");
-    testSpinner.state = "enabled";
-
     // initialize module variables
     weightUnit = inpWeightUnit;
    
@@ -84,13 +91,6 @@ function initGUI(numberUnsync, weightLog, inpCallBackNewWeight, inpCallBackRefre
 
     // initialise clock to current time
     setClock();
-
-    // initialise tumblers to last weight / fat
-    if (weightLog) {
-        if (weightLog[0]) {
-            initLastWeightFat(weightLog[0].weight, weightLog[0].fat);
-        }
-    }
 
     // initialise list to logged weights
     setWeightList(weightLog);
@@ -246,6 +246,7 @@ function initLastWeightFat(lastWeight, lastFat) {
     weightTumblerUnit.text = weightUnit;
 
     // fat
+    debug(`GUI: Last fat: ${lastFat}`);
     let intPart = Math.floor(lastFat);
     let floats = Math.round((lastFat-intPart)*10);
     fatTumblerInt.value = intPart;
@@ -288,8 +289,35 @@ function setWeightUnit(inpWeightUnit) {
 
     weightUnit = inpWeightUnit;
 
+    debug(`GUI-setWeightUnit: Unit:${weightUnit} / lastWeight: ${curWeight} / lastFat: ${curFat}`);
     initLastWeightFat(curWeight, curFat);
     setWeightList();
+
+}
+
+function setSpinner(status) {
+/* shows+starts or hides+stops the spinner
+    argument: status BOOLEAN */
+    
+    if (!status) {
+        spinner.state = "disabled";
+        spinnerContainer.style.display = "none";
+    } else {
+        spinner.state = "enabled";
+        spinnerContainer.style.display = "inline";
+    }
+
+}
+
+function alert(message) {
+// shows a message full screen or hides if message is empty
+
+    if (message) {
+        alertText.text = message;
+        alertPopUp.style.display = "inline";
+    } else {
+        alertPopUp.style.display = "none";
+    }
 
 }
 
@@ -345,27 +373,27 @@ function setWeightList(weightLog) {
 
             let weightString;
             if (weightList[index].weight) {
-                let convertedWeightUnit = (weightList[index].weight).toFixed(1);
+                let convertedWeightUnit = util.fixedDecimals(weightList[index].weight,1);
                 if (!(weightUnit === UNITS.other)) {
-                    convertedWeightUnit = (util.convertWeightUnit(weightList[index].weight, UNITS.other, weightUnit)).toFixed(1);
+                    convertedWeightUnit = util.fixedDecimals(util.convertWeightUnit(weightList[index].weight, UNITS.other, weightUnit),1);
                 }
                 weightString = `${convertedWeightUnit} ${weightUnit}`;
             } else {
-                weightString = "No weight";
+                weightString = "--";
             }
 
             let fatString;
             if (weightList[index].fat) {
-                fatString = `${(Math.round(weightList[index].fat*10)/10).toFixed(1)} %`;
+                fatString = `${util.fixedDecimals((Math.round(weightList[index].fat*10)/10),1)} %`;
             } else {
-                fatString = "No body fat";
+                fatString = "--";
             }
 
             let BMIstring;
             if (weightList[index].bmi) {
-                BMIstring = `${(Math.round(weightList[index].bmi*10)/10).toFixed(1)} BMI`;
+                BMIstring = `${util.fixedDecimals((Math.round(weightList[index].bmi*10)/10),1)} BMI`;
             } else {
-                BMIstring = "No BMI";
+                BMIstring = "--";
             }
 
             weightListDOM[index].txtDate.text = dateString;
@@ -403,5 +431,7 @@ export {
     initLastWeightFat,
     initGUI,
     setWeightList,
-    setWeightUnit
+    setWeightUnit,
+    setSpinner,
+    alert
  };
