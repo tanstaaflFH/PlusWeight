@@ -5,11 +5,65 @@ import { settingsStorage } from "settings";
 import * as KEYS from "../common/identifier";
 import secrets from "../secrets";
 
-const URL_BASE = "https://api.fitbit.com/1/user/-/body/log/";
+const URL_BASE_WEIGHT = "https://api.fitbit.com/1/user/-/body/log/";
+const ULR_PROFILE = "https://api.fitbit.com/1/user/-/profile.json";
 const URL_WEIGHT_GET = "weight/date/"
 const URL_WEIGHT_POST = "weight"
 const URL_END = ".json";
 const PERIOD = "/30d";
+
+function fetchProfileData()  {
+// Fetch Profile Data from Fitbit Web API
+    
+    let returnObject = {
+        status: KEYS.REJECT,
+        data: undefined
+    };
+
+    return refreshTokens().then(function(res) {
+        
+        // abort if the tokens could not be refreshed
+        if ( res.status === KEYS.REJECT ) {
+
+            returnObject.data = `${KEYS.ERROR_API_FETCH_PROFILE} / ${res.data}`;
+            return Promise.reject(returnObject);
+        }
+
+        // get the current tokens from the storage
+        let TOKEN = JSON.parse(settingsStorage.getItem(KEYS.SETTINGS_KEY_OAUTH));
+
+        // fetch the profile
+        let targetURL = `${ULR_PROFILE}`
+        debug(`Fetching GET: ${targetURL}`);
+        return fetch(targetURL, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${TOKEN.access_token}`
+        }
+        })
+        .then(function(res) {
+            return res.json();
+        })
+        .then(function(data) {
+            debug("Return user profile: " + JSON.stringify(data));
+            returnObject.status = KEYS.RESOLVE;
+            returnObject.data = {
+                offsetFromUTCMillis: data.user.offsetFromUTCMillis
+            };
+            debug("Profile return object:" + JSON.stringify(returnObject));
+            return Promise.resolve(returnObject);
+        })
+        .catch(err => {
+            debug('[FETCH error GET]: ' + JSON.stringify(err,undefined,2));
+            returnObject.data = `${err}`;
+            return Promise.reject(returnObject);
+        });
+    }).catch(err => {
+        debug('[Error in fetchProfileData]: ' + JSON.stringify(err,undefined,2));
+        returnObject.data = `${KEYS.ERROR_API_FETCH_PROFILE} / ${err.data}`;
+        return Promise.reject(returnObject);
+    });
+}
 
 function fetchWeightData()  {
 // Fetch Weight Data from Fitbit Web API (last month data)
@@ -39,7 +93,7 @@ function fetchWeightData()  {
         let todayDate = `${date.getFullYear()}-${utils.zeroPad(date.getMonth() + 1)}-${utils.zeroPad(date.getDate())}`; //YYYY-MM-DD
     
         // fetch the last 30 days weight entries
-        let targetURL = `${URL_BASE}${URL_WEIGHT_GET}${todayDate}${PERIOD}${URL_END}`
+        let targetURL = `${URL_BASE_WEIGHT}${URL_WEIGHT_GET}${todayDate}${PERIOD}${URL_END}`
         debug(`Fetching GET: ${targetURL}`);
         return fetch(targetURL, {
         method: "GET",
@@ -122,7 +176,7 @@ function postWeightData(data) {
             bodyString = `weight=${dataPOST.weight}&date=${dataPOST.date}&time=${dataPOST.time}`;       
         }
         debug("Defined weight POST data: " + JSON.stringify(dataPOST) + "/" + bodyString);
-        let targetURL = `${URL_BASE}${URL_WEIGHT_POST}${URL_END}?${bodyString}`
+        let targetURL = `${URL_BASE_WEIGHT}${URL_WEIGHT_POST}${URL_END}?${bodyString}`
         
         // fetch POST the data
         debug(`Fetching POST: ${targetURL}`);
@@ -216,6 +270,10 @@ function refreshTokens() {
     });
 }
 
-export { fetchWeightData, postWeightData };
+export { 
+    fetchWeightData, 
+    postWeightData, 
+    fetchProfileData 
+};
 
 

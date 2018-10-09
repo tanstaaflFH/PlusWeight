@@ -4,6 +4,7 @@ import * as util from "../common/utils";
 import { preferences } from "user-settings";
 import { debug } from "../common/log";
 import { UNITS } from "../common/weight";
+import { stat } from "fs";
 
 // define DOM elements
 // header 
@@ -34,10 +35,14 @@ let fatTumblerFloat = document.getElementById("fatTumblerFloat");
 let spinnerContainer = document.getElementById("containerSpinner");
 let spinner = document.getElementById("spinner");
 
+// no companion icon
+let noCompanionContainer = document.getElementById("containerNoCompanion");
+
 // error pop-up
 let alertPopUp = document.getElementById("alertPopUp");
 let alertText = document.getElementById("alertText");
 let alertClickTarget = document.getElementById("alertClickTarget");
+
 alertClickTarget.onclick = () => { 
     alert(); 
 };
@@ -309,6 +314,18 @@ function setSpinner(status) {
 
 }
 
+function setNoCompanion(status) {
+/*shows or hides the no companion icon
+    argument: status BOOLEAN */
+
+    if (status) {
+        noCompanionContainer.style.display = "inline";
+    } else {
+        noCompanionContainer.style.display = "none";
+    }
+
+}
+
 function alert(message) {
 // shows a message full screen or hides if message is empty
 
@@ -433,5 +450,6 @@ export {
     setWeightList,
     setWeightUnit,
     setSpinner,
+    setNoCompanion,
     alert
  };

@@ -20,7 +20,7 @@ const generateSettings = props => (
         requestTokenUrl="https://api.fitbit.com/oauth2/token"
         clientId={secrets.settings.clientId}
         clientSecret={secrets.settings.clientSecret}
-        scope="weight"
+        scope="weight profile"
         onAccessToken={async data => {
           debug("Token: " + JSON.stringify(data));
         }}

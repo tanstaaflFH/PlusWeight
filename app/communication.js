@@ -1,9 +1,9 @@
 import * as messaging from "messaging";
 import * as KEYS from "../common/identifier";
 import { debug, error } from "../common/log";
-import { alert } from "../app/gui";
+import { alert, setNoCompanion, setSpinner } from "../app/gui";
 
-function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUnitChanged, callbackOpenMessages, callbackFailure) {
+function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackProfileReceived, callbackUnitChanged, callbackOpenMessages, callbackFailure) {
 
     //set event handler on received message
     messaging.peerSocket.onmessage = evt => {
@@ -36,6 +36,18 @@ function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUn
                 callbackFailure(evt.data.content, evt.data.uuid);
                 break;
 
+            case KEYS.MESSAGE_PROFILE_SUCCESS_API:
+            // companion has successfully retrieved the user profile data
+
+                callbackProfileReceived(evt.data.content, evt.data.uuid);
+                break;
+
+            case KEYS.MESSAGE_PROFILE_FAILURE_API:
+
+                debug(`Companion could not retrieve profile data.`);
+                callbackFailure(evt.data.content, evt.data.uuid);
+                break;
+
             case KEYS.MESSAGE_UNIT_SETTING_CHANGED:
 
                 callbackUnitChanged(evt.data.content);
@@ -48,12 +60,15 @@ function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUn
     // Message socket opens
     messaging.peerSocket.onopen = () => {
         debug("App Socket Open");
+        setNoCompanion(false);
         callbackOpenMessages();
     };
     
     // Message socket closes
     messaging.peerSocket.onclose = () => {
         debug("App Socket Closed");
+        setNoCompanion(true);
+        setSpinner(false);
     };
 
     // Problem with message socket
@@ -73,10 +88,14 @@ function sendData(data, identifier, callback) {
       } catch (err) {
         error(`Exception when sending to companion`);
         alert(`Exception when sending to companion`);
+        setNoCompanion(true);
+        setSpinner(false);
+        callback(identifier, data);
       }
     } else {
       error("Unable to send data to companion, socket not open.");
-      alert("Unable to send data to companion, socket not open.");
+      setNoCompanion(true);
+      setSpinner(false);
       callback(identifier, data);
     } 
 }

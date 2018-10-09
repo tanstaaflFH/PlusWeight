@@ -3,7 +3,7 @@ import * as KEYS from "../common/identifier";
 import { debug, error } from "../common/log";
 
 
-function initMessage (callbackWeightsPosted, callbackWeightLogRequested) {
+function initMessage (callbackWeightsPosted, callbackWeightLogRequested, callbackProfileRequested) {
 
     //set event handler on received message
     messaging.peerSocket.onmessage = evt => {
@@ -22,6 +22,12 @@ function initMessage (callbackWeightsPosted, callbackWeightLogRequested) {
             // app has sent some weights to be posted to the web
 
                 callbackWeightsPosted(evt.data.content, evt.data.uuid);
+                break;
+
+            case KEYS.MESSAGE_REQUEST_PROFILE_API:
+            // app has sent a request to retrieve the user profile data from the web
+
+                callbackProfileRequested(evt.data.content, evt.data.uuid);
                 break;
 
         }

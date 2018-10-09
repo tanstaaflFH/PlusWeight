@@ -1,14 +1,30 @@
 import {debug} from "../common/log";
 import { settingsStorage } from "settings";
-import * as weightAPI from "./weightAPI";
-import * as clsWeight from "../common/weight";
+import * as webAPI from "./webAPI";
 import * as communication from "./communication";
 import * as KEYS from "../common/identifier";
 
 //callback functions
+function requestProfileData(uuid) {
+
+  webAPI.fetchProfileData().then(
+    result => {
+      let returnObject = {
+        offsetFromUTCMillis: result.data.offsetFromUTCMillis
+      };
+      debug("Received Profile Data: " + JSON.stringify(returnObject));
+      communication.sendData({key: KEYS.MESSAGE_PROFILE_SUCCESS_API, content: returnObject, uuid: uuid});
+    }
+  ).catch(err => {
+      debug('[Error in requestProfileData]: ' + JSON.stringify(err,undefined,2));
+      communication.sendData({key: KEYS.MESSAGE_PROFILE_FAILURE_API, content: `${err.data}`, uuid: uuid});
+    }
+  );
+}
+
 function requestWeightLog(uuid) {
 
-  weightAPI.fetchWeightData().then(
+  webAPI.fetchWeightData().then(
     result => {
       debug("receivedWeightLog: " + JSON.stringify(result.data));
       communication.sendData({key: KEYS.MESSAGE_RETRIEVE_SUCCES_API, content: result.data, uuid: uuid});
@@ -34,7 +50,7 @@ async function postNewWeights(newWeightsData, uuid) {
   // do one POST for each entry of the array with logs to be posted
   let resolved = [];
   for (let index = 0; index < newWeightsData.length; index++) {
-    await weightAPI.postWeightData(newWeightsData[index]).then(
+    await webAPI.postWeightData(newWeightsData[index]).then(
       result => {
         debug("successfully posted new weight: " + JSON.stringify(result));
         resolved.push(newWeightsData[index].logID);
@@ -52,7 +68,7 @@ async function postNewWeights(newWeightsData, uuid) {
   }
 }
 
-communication.initMessage(postNewWeights, requestWeightLog);
+communication.initMessage(postNewWeights, requestWeightLog, requestProfileData);
 
 settingsStorage.onchange = evt => {
 // A user changes Settings

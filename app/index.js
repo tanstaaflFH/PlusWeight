@@ -15,6 +15,7 @@ let weightsToBeLogged = storage.loadWeightsToBeLogged(); // weight entries that 
 let weightsPast = storage.loadWeightsPast(); // past weight entries fetched from web
 let asyncOngoing = []; // UUID for all ongoing asynchronous requests
 let appSettings = storage.loadSettings() || {weightUnit: clsWeight.UNITS.other};
+let userTimeOffset;
 resetLastWeight();
 debug("weightsToBeLogged " + JSON.stringify(weightsToBeLogged));
 
@@ -37,7 +38,16 @@ function addWeightLog (data) {
 
 function addMessageLog(identifier, data) {
 
-  if (!messageLog.includes(identifier)) {
+  let found = false;
+
+  for (let index = 0; index < messageLog.length; index++) {
+    if (messageLog[index] == identifier)  {
+      found = true;
+      break;
+    }    
+  }
+
+  if (!found) {
 
     messageLog.push(identifier);
 
@@ -101,7 +111,7 @@ clock.ontick = (evt) => {
 gui.initGUI(weightsToBeLogged.length, weightsPast, addWeightLog, refreshWeightLog, appSettings.weightUnit);
 
 // Messaging initialize
-communication.initMessage(weightsReceivedFromAPI, weightsPostedToAPI, weightUnitChanged, retryMessaging, requestFailure);
+communication.initMessage(weightsReceivedFromAPI, weightsPostedToAPI, profileReceivedFromAPI, weightUnitChanged, retryMessaging, requestFailure);
 
 // check if remaining unsynched weight logs
 sendWeightLog();
@@ -116,6 +126,35 @@ display.onchange = function() {
 };
 
 /* Functions for data handling */
+function requestProfile() {
+
+  let requestUUID = utils.UUID();
+  let requestData = {
+    key: KEYS.MESSAGE_REQUEST_PROFILE_API,
+    content: "",
+    uuid: requestUUID
+  }
+  updateSpinner(requestUUID,undefined);
+  communication.sendData(requestData, KEYS.MESSAGE_REQUEST_PROFILE_API, addMessageLog);
+  debug(`App shall message companion to request user profile.`);
+
+}
+
+function profileReceivedFromAPI(data, uuid) {
+
+  // Check if a defined error was returned from the companion
+  if ( data === KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN ) {
+    debug(`App could not refresh user profile from web ${data}`);
+    return;
+  }
+
+  debug(`Received user profile from Web: ${JSON.stringify(data)}`);
+  userTimeOffset = data.offsetFromUTCMillis;
+  debug(`New time offset = ${userTimeOffset}`);
+  updateSpinner(undefined,uuid);
+
+}
+ 
 function weightsReceivedFromAPI(data, uuid) {
 
   // Check if a defined error was returned from the companion
