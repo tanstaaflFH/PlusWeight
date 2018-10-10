@@ -3,7 +3,7 @@ import { me as device } from "device";
 import * as util from "../common/utils";
 import { preferences } from "user-settings";
 import { debug, error } from "../common/log";
-import { UNITS } from "../common/weight";
+import { UNITS } from "../common/identifier";
 
 // define DOM elements
 // header 
@@ -346,7 +346,7 @@ function log(message) {
 // appends the <messag> to the displayed log
 
     let now = new Date();
-    let timeStamp = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+    let timeStamp = `${util.zeroPad(now.getHours())}:${util.zeroPad(now.getMinutes())}:${util.zeroPad(now.getSeconds())}`;
     messageLogString = `- ${timeStamp}: ${message}\n${messageLogString}`;
     messageLog.text = messageLogString;
     debug(message);

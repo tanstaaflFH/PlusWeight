@@ -1,4 +1,14 @@
 /* common constants*/
+const LOCALE = {
+    US: "en_US",
+    other: ""
+}
+
+const UNITS = {
+    US: "lbs",
+    other: "kg"
+}
+
 const SETTINGS_KEY_OAUTH = "OAUTH";
 const SETTINGS_KEY_UNIT = "UNIT";
 const SETTINGS_KEY_OTC_OFFSET = "OTCOFFSET";
@@ -21,6 +31,8 @@ const ERROR_API_POST_WEIGHT_LOG = "Could not post the weight log to the FitBit w
 const ERROR_API_FETCH_PROFILE = "Could not retrieve user profile data.";
 
 export {
+    LOCALE,
+    UNITS,
     MESSAGE_UNIT_SETTING_CHANGED,
     MESSAGE_POST_SUCCESS_API,
     MESSAGE_POST_FAILURE_API,

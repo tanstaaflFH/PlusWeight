@@ -3,6 +3,7 @@
 */
 
 import * as fs from "fs";
+import { log } from "../app/gui";
 import { debug } from "../common/log";
 
 const FILE_TYPE = "json";
@@ -83,11 +84,4 @@ function loadFile(fileName, inpReturnError) {
 
 }
 
-export { 
-  loadWeightsToBeLogged, 
-  saveWeightsToBeLogged,
-  loadWeightsPast,
-  saveWeightsPast,
-  loadSettings,
-  saveSettings
-};
+export { loadWeightsToBeLogged, saveWeightsToBeLogged, loadWeightsPast, saveWeightsPast, loadSettings, saveSettings };

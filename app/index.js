@@ -1,20 +1,20 @@
 //imports
-import * as clsWeight from "../common/weight";
-import * as storage from "./localStorage";
 import clock from "clock";
 import { display } from "display";
-import * as gui from "./gui";
-import { debug } from "../common/log";
-import * as communication from "./communication";
 import * as KEYS from "../common/identifier";
+import { debug } from "../common/log";
 import * as utils from "../common/utils";
+import * as clsWeight from "../common/weight";
+import * as communication from "./communication";
+import * as gui from "./gui";
+import * as storage from "./localStorage";
 
 // Initialize data elements
 let messageLog = []; // array that holds identifiers for unsuccessful messages ( to be repeated )
 let weightsToBeLogged = storage.loadWeightsToBeLogged(); // weight entries that need still to be posted
 let weightsPast = storage.loadWeightsPast(); // past weight entries fetched from web
 let asyncOngoing = []; // UUID for all ongoing asynchronous requests
-let appSettings = storage.loadSettings() || {weightUnit: clsWeight.UNITS.other};
+let appSettings = storage.loadSettings() || {weightUnit: KEYS.UNITS.other};
 resetLastWeight();
 debug("weightsToBeLogged " + JSON.stringify(weightsToBeLogged));
 
@@ -25,7 +25,7 @@ function addWeightLog (data) {
   let newEntry = new clsWeight.Weight(new Date(), data.weight, data.fat);
   weightsToBeLogged.push(newEntry);
   storage.saveWeightsToBeLogged(weightsToBeLogged);
-  debug("new weightstobelogged " + JSON.stringify(weightsToBeLogged));
+  gui.log("Unsynched weights: " + JSON.stringify(weightsToBeLogged));
 
   // show new open unsynched
   gui.remainingSync(weightsToBeLogged.length);
@@ -79,7 +79,7 @@ function sendWeightLog() {
       }
       updateSpinner(requestUUID,undefined);
       communication.sendData(requestData, KEYS.MESSAGE_POST_WEIGHTS_API, addMessageLog);
-      log(`App shall message companion to send a weight log.`);
+      gui.log(`Trying to send ${tempPost.length} weight entries to companion for upload to web.`);
     
     }
   }
@@ -96,7 +96,7 @@ function refreshWeightLog () {
   }
   updateSpinner(requestUUID,undefined);
   communication.sendData(requestData, KEYS.MESSAGE_REQUEST_WEIGHT_LOG_API, addMessageLog);
-  log(`App shall message companion to request web weight log.`);
+  gui.log(`Trying to request from companion new weight log from web.`);
 
 }
 
@@ -111,6 +111,11 @@ gui.initGUI(weightsToBeLogged.length, weightsPast, addWeightLog, refreshWeightLo
 
 // Messaging initialize
 communication.initMessage(weightsReceivedFromAPI, weightsPostedToAPI, weightUnitChanged, retryMessaging, requestFailure);
+
+// display status of messaging
+if (!communication.messageState) {
+  gui.setNoCompanion(true);
+}
 
 // check if remaining unsynched weight logs
 sendWeightLog();
@@ -129,17 +134,21 @@ function weightsReceivedFromAPI(data, uuid) {
 
   // Check if a defined error was returned from the companion
   if ( data === KEYS.ERROR_API_TOKEN_OLD_REFRESH_TOKEN ) {
-    log(`App could not refresh web weights ${data}`);
+    gui.log(`App could not refresh web weights ${data}`);
     return;
   }
 
   debug(`Received data from Web: ${JSON.stringify(data)}`);
+
+  let countReal = 0;
   // clean up the date objects
   for (let index = 0; index < data.length; index++) {
     if (data[index]) {
       data[index].date = new Date(data[index].date);
+      countReal++;
     }
   }
+  gui.log(`Received ${countReal} web weight log entries from the companion.`)
 
   weightsPast = data;
   storage.saveWeightsPast(weightsPast);
@@ -154,7 +163,8 @@ function weightsPostedToAPI(data, uuid) {
 The return array shows all UUID that have been posted. It loops through the array of 
 weightsToBeLogged and removes the already posted entries */
 
-  log(`Successfully posted data to Web: ${JSON.stringify(data)}`);
+  debug(`Successfully posted data to Web: ${JSON.stringify(data)}`);
+  gui.log(`Companion has successfully uploaded ${data.length} weight entries to the web.`);
 
   for (let index = 0; index < data.length; index++) {
     // loop through all returned entries  
@@ -252,7 +262,7 @@ function weightUnitChanged(newUnit) {
 
   // update module variable
   appSettings.weightUnit = newUnit;
-  log(`New unit selected: ${newUnit}`);
+  gui.log(`New unit selected: ${newUnit}`);
 
   // save new setting to device
   storage.saveSettings(appSettings);

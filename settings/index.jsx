@@ -1,5 +1,5 @@
 import { debug } from "../common/log.js";
-import { UNITS, Weight } from "../common/weight.js";
+import { UNITS } from "../common/identifier.js";
 import secrets from "../secrets";
 
 const generateSettings = props => (

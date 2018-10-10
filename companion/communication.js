@@ -58,7 +58,4 @@ function sendData(data) {
     } 
 }
 
-export {
-    initMessage,
-    sendData
-}
+export { initMessage, sendData };

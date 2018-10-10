@@ -1,7 +1,7 @@
 import * as messaging from "messaging";
+import { alert, log, setNoCompanion, setSpinner } from "../app/gui";
 import * as KEYS from "../common/identifier";
 import { debug, error } from "../common/log";
-import { log, alert, setNoCompanion, setSpinner } from "../app/gui";
 
 function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUnitChanged, callbackOpenMessages, callbackFailure) {
 
@@ -86,7 +86,15 @@ function sendData(data, identifier, callback) {
     } 
 }
 
-export {
-    initMessage,
-    sendData
+function messageState() {
+    
+    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+        return true;
+    } else {
+        return false;
+    }
+
 }
+
+export { initMessage, sendData, messageState };
+

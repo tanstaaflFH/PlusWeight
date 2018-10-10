@@ -634,11 +634,16 @@
 
         <use id="screen2" href="#panoramaview-item"> 
 
-            <use id="messageLogScroll" href="#scrollview">
+            <use id="messageLogScroll" x="0" y="12%" width="100%" height="88%" href="#scrollview">
                 <use href="#scrollview-item" width="100%" height="300%">
-                    <textarea id="messageLog" x="5%" y="10" width="90%" height="100%-10" text-length="1024" font-size="16" /> 
+                    <textarea id="messageLog" x="5%" y="10" width="90%" height="100%-30" text-length="1024" font-size="16" /> 
                 </use>          
             </use>
+            
+            <!-- header -->
+            <rect id="headRect2" class="headRect" fill="fb-plum" />
+            <text id="headText2" class="header" fill="white">Message Log / Info</text>
+            <line id="headLine2" class="headLine" />
 
         </use>
 

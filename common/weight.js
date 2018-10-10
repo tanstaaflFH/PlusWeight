@@ -1,15 +1,5 @@
-import { UUID, zeroPad } from "../common/utils";
-
-const LOCALE = {
-    US: "en_US",
-    other: ""
-}
-
-const UNITS = {
-    US: "lbs",
-    other: "kg"
-}
-
+import { UUID } from "../common/utils";
+import { UNITS } from "../common/identifier";
 class Weight {
 
     constructor ( date, weight, fat, unit ) {
@@ -35,9 +25,8 @@ class Weight {
     }
 
 }
+import { format } from "util";
 
 export {
-    LOCALE, 
-    UNITS, 
     Weight
 };

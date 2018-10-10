@@ -1,8 +1,8 @@
-import {debug} from "../common/log";
 import { settingsStorage } from "settings";
-import * as webAPI from "./webAPI";
-import * as communication from "./communication";
 import * as KEYS from "../common/identifier";
+import { debug } from "../common/log";
+import * as communication from "./communication";
+import * as webAPI from "./webAPI";
 
 let userUTCOffset = settingsStorage.getItem(KEYS.SETTINGS_KEY_OTC_OFFSET) || {
   raw: 0,

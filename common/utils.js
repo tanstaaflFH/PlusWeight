@@ -5,9 +5,7 @@
       - numberWithSeparator: takes a number as an input, rounds it to an integer and returns it as a string with the numbers in 3 digits groups separated by a "."
 */
 
-import { UNITS } from "./weight";
-import { debug } from "util";
-import { sep } from "path";
+import { UNITS } from "../common/identifier";
 
 function zeroPad(i) {
 // Add zero in front of numbers < 10
@@ -89,12 +87,5 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export {
-  zeroPad,
-  numberGroupThousand,
-  numberWithSeparator,
-  convertWeightUnit,
-  UUID,
-  sleep,
-  fixedDecimals
-}
+export { zeroPad, numberGroupThousand, numberWithSeparator, convertWeightUnit, UUID, sleep, fixedDecimals };
+

@@ -1,8 +1,8 @@
-import {debug} from "../common/log";
-import * as clsWeight from "../common/weight";
-import * as utils from "../common/utils";
 import { settingsStorage } from "settings";
 import * as KEYS from "../common/identifier";
+import { debug } from "../common/log";
+import * as utils from "../common/utils";
+import * as clsWeight from "../common/weight";
 import secrets from "../secrets";
 
 const URL_BASE_WEIGHT = "https://api.fitbit.com/1/user/-/body/log/";
@@ -257,10 +257,6 @@ async function refreshTokens() {
     }
 }
 
-export { 
-    fetchWeightData, 
-    postWeightData, 
-    fetchProfileData 
-};
+export { fetchWeightData, postWeightData, fetchProfileData };
 
 
