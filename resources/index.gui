@@ -32,7 +32,10 @@
             <use id="mainHeader" href="#headerSymbol"/>
 
             <!-- Welcome text -->
-            <textarea id="welcomeText">Welcome to WeightAdd</textarea>
+            <textarea id="welcomeText" x="20%+30" y="18%" width="80%-30" height="30%" text-anchor="middle" display-align="center" font-size="32" font-family="Colfax-Light" fill="white">
+                Welcome to WeightAdd
+            </textarea>
+            <image id="appIcon" x="20%-30" y="33%-30" width="60" height="60" href="icon.png" load="sync" />
 
             <!-- weight entry button rect -->
             <use id="btnNewWeight" href="#square-button" > 
@@ -629,6 +632,16 @@
 
         </use>
 
+        <use id="screen2" href="#panoramaview-item"> 
+
+            <use id="messageLogScroll" href="#scrollview">
+                <use href="#scrollview-item" width="100%" height="300%">
+                    <textarea id="messageLog" x="5%" y="10" width="90%" height="100%-10" text-length="1024" font-size="16" /> 
+                </use>          
+            </use>
+
+        </use>
+
         <use id="pagination-dots" href="#pagination-widget" y="95%"> 
             <use href="#pagination-dot" /> 
             <use href="#pagination-dot" /> 
@@ -651,7 +664,9 @@
     <!-- error message pop-up -->
     <svg id="alertPopUp" display="none">
         <rect id="alertBG" width="100%" height="100%" fill="black" opacity="0.95" />
-        <textarea id="alertText">Placeholder error message.</textarea>
+        <textarea id="alertText" font-size="20" font-weight="bold" fill="fb-red" x="5%" y="5%" width="90%" height="90%" text-anchor="middle" display-align="center" text-length="256">
+            Placeholder error message.
+        </textarea>
         <rect id="alertClickTarget" width="100%" height="100%" opacity="0" pointer-events="visible" />
     </svg>
 

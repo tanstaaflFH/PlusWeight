@@ -1,4 +1,4 @@
-import { UUID } from "../common/utils";
+import { UUID, zeroPad } from "../common/utils";
 
 const LOCALE = {
     US: "en_US",
@@ -23,9 +23,9 @@ class Weight {
         
     }
     
-    initFromWebData(data, unit) {
+    initFromWebData(data, unit, UTCoffsetMs) {
 
-        let dateString = (data.date + "T" + data.time);
+        let dateString = UTCoffsetMs.raw == 0 ? (`${data.date}T${data.time}Z`) : (`${data.date}T${data.time}${UTCoffsetMs.sign}${UTCoffsetMs.hoursString}:${UTCoffsetMs.minutesString}`);
         this.date = dateString;
         this.weight = data.weight;
         this.fat = data.fat;

@@ -75,7 +75,7 @@ function loadFile(fileName, inpReturnError) {
     }
     debug(`Successfully loaded ${fileName} from device: ${JSON.stringify(returnObject)}`);
   } catch (ex) {
-    debug("Error loading past weights from device: " + ex);
+    log("Error loading past weights from device: " + ex);
     returnObject = returnError;
   }
 

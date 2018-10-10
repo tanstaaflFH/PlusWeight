@@ -1,9 +1,9 @@
 import * as messaging from "messaging";
 import * as KEYS from "../common/identifier";
 import { debug, error } from "../common/log";
-import { alert, setNoCompanion, setSpinner } from "../app/gui";
+import { log, alert, setNoCompanion, setSpinner } from "../app/gui";
 
-function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackProfileReceived, callbackUnitChanged, callbackOpenMessages, callbackFailure) {
+function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackUnitChanged, callbackOpenMessages, callbackFailure) {
 
     //set event handler on received message
     messaging.peerSocket.onmessage = evt => {
@@ -20,7 +20,7 @@ function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackPr
 
             case KEYS.MESSAGE_RETRIEVE_FAILURE_API:
 
-                debug(`Companion could not retrieve the weight log from the web. ${evt.data.content}`);
+                log(`Companion could not retrieve the weight log from the web. ${evt.data.content}`);
                 callbackFailure(evt.data.content, evt.data.uuid);
                 break;
 
@@ -32,19 +32,7 @@ function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackPr
 
             case KEYS.MESSAGE_POST_FAILURE_API:
 
-                debug(`Companion could not post any weight data.`);
-                callbackFailure(evt.data.content, evt.data.uuid);
-                break;
-
-            case KEYS.MESSAGE_PROFILE_SUCCESS_API:
-            // companion has successfully retrieved the user profile data
-
-                callbackProfileReceived(evt.data.content, evt.data.uuid);
-                break;
-
-            case KEYS.MESSAGE_PROFILE_FAILURE_API:
-
-                debug(`Companion could not retrieve profile data.`);
+                log(`Companion could not post any weight data.`);
                 callbackFailure(evt.data.content, evt.data.uuid);
                 break;
 
@@ -59,21 +47,20 @@ function initMessage (callbackWeightsReceived, callbackWeightsPosted, callbackPr
 
     // Message socket opens
     messaging.peerSocket.onopen = () => {
-        debug("App Socket Open");
+        log("App Socket Open");
         setNoCompanion(false);
         callbackOpenMessages();
     };
     
     // Message socket closes
     messaging.peerSocket.onclose = () => {
-        debug("App Socket Closed");
+        log("App Socket Closed");
         setNoCompanion(true);
         setSpinner(false);
     };
 
     // Problem with message socket
     messaging.peerSocket.onerror = err => {
-        error("Connection error: " + err.code + " - " + err.message);
         alert("Connection error: " + err.code + " - " + err.message);
     };
 }
@@ -86,7 +73,6 @@ function sendData(data, identifier, callback) {
         messaging.peerSocket.send(data);
         debug(`Sent to companion: ${JSON.stringify(data, undefined, 2)}`);
       } catch (err) {
-        error(`Exception when sending to companion`);
         alert(`Exception when sending to companion`);
         setNoCompanion(true);
         setSpinner(false);

@@ -4,27 +4,33 @@ import * as webAPI from "./webAPI";
 import * as communication from "./communication";
 import * as KEYS from "../common/identifier";
 
-//callback functions
-function requestProfileData(uuid) {
+let userUTCOffset = settingsStorage.getItem(KEYS.SETTINGS_KEY_OTC_OFFSET) || {
+  raw: 0,
+  sign: "",
+  hoursString: "00",
+  minutesString: "00"
+};
 
-  webAPI.fetchProfileData().then(
-    result => {
-      let returnObject = {
-        offsetFromUTCMillis: result.data.offsetFromUTCMillis
-      };
-      debug("Received Profile Data: " + JSON.stringify(returnObject));
-      communication.sendData({key: KEYS.MESSAGE_PROFILE_SUCCESS_API, content: returnObject, uuid: uuid});
-    }
-  ).catch(err => {
-      debug('[Error in requestProfileData]: ' + JSON.stringify(err,undefined,2));
-      communication.sendData({key: KEYS.MESSAGE_PROFILE_FAILURE_API, content: `${err.data}`, uuid: uuid});
-    }
-  );
+// other functions
+async function updateUserUTCOffset() {
+
+  try {
+    const userProfile = await webAPI.fetchProfileData();
+    userUTCOffset = userProfile.data.offsetFromUTCMillis;
+    settingsStorage.setItem(KEYS.SETTINGS_KEY_OTC_OFFSET, userUTCOffset);
+    debug(`New user UTC offset: ${userUTCOffset}`);
+  } catch (error) {
+    debug(`Could not update the UTC offset from the user profile`);
+  }
+
 }
 
-function requestWeightLog(uuid) {
+//callback functions
+async function requestWeightLog(uuid) {
 
-  webAPI.fetchWeightData().then(
+  await updateUserUTCOffset();
+
+  webAPI.fetchWeightData(userUTCOffset).then(
     result => {
       debug("receivedWeightLog: " + JSON.stringify(result.data));
       communication.sendData({key: KEYS.MESSAGE_RETRIEVE_SUCCES_API, content: result.data, uuid: uuid});
@@ -68,7 +74,7 @@ async function postNewWeights(newWeightsData, uuid) {
   }
 }
 
-communication.initMessage(postNewWeights, requestWeightLog, requestProfileData);
+communication.initMessage(postNewWeights, requestWeightLog);
 
 settingsStorage.onchange = evt => {
 // A user changes Settings
